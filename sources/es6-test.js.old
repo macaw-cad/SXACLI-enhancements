@@ -1,0 +1,3 @@
+function es6Test() { 
+    console.log("This is the output of the es6Test function"); 
+}

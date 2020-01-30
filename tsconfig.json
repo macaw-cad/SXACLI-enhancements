@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "module": "UMD",
+        "target": "es5",        /* Specify ECMAScript target version */
+        "rootDir": "sources",   /* ts source directory */
+        "outDir": "scripts",    /* where to compile javascript files */
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "sourceMap": true,
+        "typeRoots": [
+            "node_modules/@types"
+        ],
+    },
+    "include": ["sources/**/*.ts"],
+    "exclude": ["node_modules", "**/*.spec.ts"]
+    }
