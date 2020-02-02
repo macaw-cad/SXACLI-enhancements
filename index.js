@@ -24,9 +24,9 @@ gulp.task('custom-js-watch', ['login'], () => {
       console.log('Watching JS file scripts/pre-optimized-min.js started...'.green);
   }, 0);
   return watch('scripts/pre-optimized-min.js', { verbose: 0 }, function (file) {
-      var stream = gulp.src(file.path);
+      // var stream = gulp.src(file.path);
       fileActionResolver(file);
-      return stream;
+      // return stream;
   })
 });
 
@@ -48,6 +48,7 @@ gulp.task('custom-all-watch', ['login'],
       // Upload images
       gulp.run('img-watch')
 
+      // Watch scripts/pre-optimized-min.js and upload
       gulp.run('custom-js-watch')
       
       // Upload Scriban files

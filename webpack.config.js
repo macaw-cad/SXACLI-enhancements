@@ -161,8 +161,8 @@ module.exports = {
 		extensions: ['.ts', '.tsx', '.js', '.jsx']
 	},
 	externals: {
-		// Use external version of React (from CDN for client-side, or
-		// bundled with ReactJS.NET for server-side)
+		// Use external version of jQuery and React
+		jquery: 'jQuery',
 		react: 'React',
         "react-dom": "ReactDOM"
 	},

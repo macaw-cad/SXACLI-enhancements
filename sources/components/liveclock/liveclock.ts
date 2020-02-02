@@ -24,11 +24,11 @@ function clockUpdate() {
 
     function twelveHour(x: number) {
         if (x > 12) {
-            return x = x - 12;
+            return x = x - 12; 
         } else if (x == 0) {
             return x = 12;
         } else {
-            return x;
+            return x; 
         }
     }
 
