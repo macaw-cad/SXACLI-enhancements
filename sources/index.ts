@@ -4,12 +4,12 @@ import jQuery from 'jquery';
 
 import "slick-carousel";
 
-import { mylatte } from './mylatte';
-import { slickcarousel } from './slickcarousel'; 
-import { liveclock } from './liveclock';
+import { mylatte } from './components/mylatte/mylatte';
+import { slickcarousel } from './components/slickcarousel/slickcarousel'; 
+import { liveclock } from './components/liveclock/liveclock';
 
 document.addEventListener('DOMContentLoaded', () => {
     mylatte(); 
     slickcarousel();
-    liveclock();
+    liveclock(); 
 });  

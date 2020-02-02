@@ -1,3 +1,5 @@
+import './liveclock.scss';
+
 var showTwelve = false;
 
 export function liveclock() {
@@ -9,7 +11,7 @@ export function liveclock() {
     setInterval(clockUpdate, 1000);
 }
 
-function clockUpdate() {
+function clockUpdate() { 
     var date = new Date();
     $('.digital-clock').css({ 'color': '#fff', 'text-shadow': '0 0 6px #ff0' });
     function addZero(x: number | string) {
@@ -18,7 +20,7 @@ function clockUpdate() {
         } else {
             return x;
         }
-    }
+    } 
 
     function twelveHour(x: number) {
         if (x > 12) {

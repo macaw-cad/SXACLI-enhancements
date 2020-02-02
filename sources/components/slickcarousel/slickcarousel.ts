@@ -6,7 +6,7 @@
 //   $: any;
 // }
 
-
+import './slickcarousel.scss';
 
 export function slickcarousel() {
   jQuery('#slickcarousel').slick();

@@ -1,3 +1,4 @@
+import './mylatte.scss';
 import { Carousel, IOptions } from 'latte-carousel';
 
 export function mylatte() {
