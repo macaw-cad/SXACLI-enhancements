@@ -10,6 +10,7 @@
 <p>Hello world!</p>
 <hr/>
 <div class="digital-clock">00:00:00</div>
+<div class="xaClock" data-hourshift="2">00:00:00</div>
 <hr/>
 <div id="slickcarousel" data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>
   <div><h3>1</h3></div>

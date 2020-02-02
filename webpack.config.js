@@ -26,7 +26,7 @@ function getPlugins() {
 	// define the name of the output file. All css will be loaded into this file.
 	plugins.push(
 		new MiniCssExtractPlugin({
-			filename: 'styles/custom.css',
+			filename: 'styles/pre-optimized-min.css',
 			ignoreOrder: true
 		})
 	);
