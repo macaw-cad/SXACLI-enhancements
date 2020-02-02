@@ -1,6 +1,13 @@
-import "slick-carousel";
-import * as $ from 'jquery';
-//(window as any).$ = (window as any).jQuery = jQuery;
+
+// import * as jQuery from 'jquery';
+// (window as any).$ = (window as any).jQuery = jQuery;
+
+// const jquerywindow = window as unknown as {
+//   $: any;
+// }
+
+
+
 export function slickcarousel() {
-    $('#slickcarousel').slick();
+  jQuery('#slickcarousel').slick();
 }

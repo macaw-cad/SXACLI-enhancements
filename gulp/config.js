@@ -102,7 +102,7 @@ module.exports = {
         minificationPath: ['styles/*.css'],
         cssOptimiserFilePath: 'styles/',
         cssOptimiserFileName: 'pre-optimized-min.css',
-        cssSourceMap: false,
+        cssSourceMap: true,
         enableMinification: true,
         disableSourceUploading: true
     },
@@ -142,7 +142,7 @@ module.exports = {
             spritesmith: {
                 imgName: 'sprite-flag.png',
                 cssName: '_sprite-flag.scss',
-                imgPath: '../images/sprite-flag',
+                imgPath: '../images/sprite-flag.png',
                 cssFormat: 'scss',
                 padding: 10,
                 algorithm: 'top-down',
