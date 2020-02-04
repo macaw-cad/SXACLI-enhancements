@@ -1,6 +1,7 @@
-#  Publish theme to Sitecore
+# Display fields of Sitecore item
+# https://www.sergevandenoever.nl
 param(
-    [string]$itemPath = "/sitecore/content/SergeTenant/SergeSxaSite/Data/Carousels/HabitatHome/Slide1"
+    [string]$itemPath = "/sitecore/content/Home"
 )
 
 Set-Location -Path $PSScriptRoot
@@ -31,17 +32,14 @@ if ($server -eq '') {
 
 $serverConfigResult = Get-Content -Path gulp\serverConfig.json | ConvertFrom-Json
 $projectPath = $serverConfigResult.serverOptions.projectPath
-$themePath = $serverConfigResult.serverOptions.themePath
-$fullThemePath = "master:\Media Library$projectPath$themePath"
 
 Write-Output "Username: $username"
 Write-Output "Password: $password"
 Write-Output "ConnectionUri: $server"
-Write-Output "Theme path: $fullThemePath"
 Write-Output "Get item fields of '$itemPath'..."
 Import-Module -Name SPE 
 $session = New-ScriptSession -Username $username -Password $password -ConnectionUri $server
 Invoke-RemoteScript -Session $session -ScriptBlock { 
-    Get-Item $Using:itemPath | Get-ItemField -IncludeStandardFields -ReturnType Field -Name "*" | ft Name, DisplayName, SectionDisplayName, Description -auto
+    Get-Item $Using:itemPath | Get-ItemField -IncludeStandardFields -ReturnType Field -Name "*" | Format-Table Name, DisplayName, SectionDisplayName, Description -auto
 }
 Stop-ScriptSession -Session $session
