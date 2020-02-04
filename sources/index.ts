@@ -13,4 +13,4 @@ document.addEventListener('DOMContentLoaded', () => {
     liveclock();
     mylatte();
     slickcarousel(); 
-});  
+}); 

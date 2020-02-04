@@ -60,7 +60,7 @@ gulp.task('custom-all-watch', ['login'],
     // Other files (main, overlay, privacy-warning and custom components) will then be included
     // from sources/index.scss 
     gulp.run('sass-watch');
-    //gulp.run('css-watch')
+    gulp.run('css-watch')
 
     // Upload images
     gulp.run('img-watch')
@@ -76,12 +76,20 @@ gulp.task('custom-all-watch', ['login'],
   }
 );
 
-// 
-gulp.task('build-css', ['login'],
+// Transpile sass to styles folder
+gulp.task('build-sass', ['login'],
   function () {
     runSequence(
       'sprite-flag',
-      ['sassStyles', 'sassComponents'],
+      ['sassStyles', 'sassComponents']
+    );
+  }
+);
+
+// Concat and minify styles folder
+gulp.task('build-css', ['login'],
+  function () {
+    runSequence(
       'cssOptimise'
     );
   }

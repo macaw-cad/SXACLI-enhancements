@@ -26,7 +26,7 @@ function getPlugins() {
 	// define the name of the output file. All css will be loaded into this file.
 	plugins.push(
 		new MiniCssExtractPlugin({
-			filename: 'styles/pre-optimized-min.css',
+			filename: 'styles/custom.css',
 			ignoreOrder: true
 		})
 	);
@@ -94,7 +94,7 @@ module.exports = {
 	context: path.join(__dirname, '.'),
 	// define the entry points. In our case one for client and one for server side.
 	entry: {
-		main: [ './sources/index.ts' /*, './sources/index.scss' */ ]
+		main: [ './sources/index.ts' ]
 	},
 	devtool: isProd ? undefined : 'cheap-module-inline-source-map',
 	output: {
