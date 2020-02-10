@@ -55,6 +55,9 @@
         }
     }
     @import "base/richtext/richtext-files-icons";
-    @import "variants/file-list/*";
+    @import "variants/file-list/default.scss";
+@import "variants/file-list/documents-with-links.scss";
+
 }
-@import "styles/file-list/*";
+@import "styles/file-list/file-list-horizontal.scss";
+

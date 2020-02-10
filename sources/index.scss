@@ -1,51 +1,70 @@
-@import "../styles/component-archive.css";
-@import "../styles/component-breadcrumb.css";
-@import "../styles/component-carousel.css";
-@import "../styles/component-column-splitter.css";
-@import "../styles/component-container.css";
-@import "../styles/component-divider.css";
-@import "../styles/component-event-list.css";
-@import "../styles/component-facebook-comments.css";
-@import "../styles/component-feed.css";
-@import "../styles/component-field-editor.css";
-@import "../styles/component-file-list.css";
-@import "../styles/component-flash.css";
-@import "../styles/component-flip.css";
-@import "../styles/component-forms.css";
-@import "../styles/component-forms.css";
-@import "../styles/component-fullcalendar.css";
-@import "../styles/component-galleria.css";
-@import "../styles/component-iframe.css";
-@import "../styles/component-image.css";
-@import "../styles/component-language-selector.css";
-@import "../styles/component-link-list.css";
-@import "../styles/component-link.css";
-@import "../styles/component-login.css";
-@import "../styles/component-logout.css";
-@import "../styles/component-map.css";
-@import "../styles/component-media-link.css";
-@import "../styles/component-navigation.css";
-@import "../styles/component-page-list.css";
-@import "../styles/component-pagination.css";
-@import "../styles/component-playlist.css";
-@import "../styles/component-promo.css";
-@import "../styles/component-richtext-content.css";
-@import "../styles/component-search-other.css";
-@import "../styles/component-site-selector.css";
-@import "../styles/component-sitecore-form.css";
-@import "../styles/component-skip-link.css";
-@import "../styles/component-snippet.css";
-@import "../styles/component-social-media-share.css";
-@import "../styles/component-tabs.css";
-@import "../styles/component-tag-cloud.css";
-@import "../styles/component-tag-list.css";
-@import "../styles/component-title.css";
-@import "../styles/component-toggle.css";
-@import "../styles/component-twitter.css";
-@import "../styles/component-video.css";
-
 @import "../sass/main.scss";
+
+@import "./theme.scss";
+
+// Overwriting colors, margins and fontSizes already used in main.scss with theme values
+body {
+    background: $page-bg;
+    &.on-page-editor {
+        background: $page-bg-editor !important;
+    }
+}
+
+a {
+    color: $text-basic;
+    &:hover {
+        color: $text-basic-active;
+    }
+}
+
+@import "../sass/component-accordion.scss";
+@import "../sass/component-archive.scss";
+@import "../sass/component-breadcrumb.scss";
+@import "../sass/component-carousel.scss";
+@import "../sass/component-column-splitter.scss";
+@import "../sass/component-container.scss";
+@import "../sass/component-divider.scss";
+@import "../sass/component-event-list.scss";
+@import "../sass/component-facebook-comments.scss";
+@import "../sass/component-feed.scss";
+@import "../sass/component-field-editor.scss";
+@import "../sass/component-file-list.scss";
+@import "../sass/component-flash.scss";
+@import "../sass/component-flip.scss";
+@import "../sass/component-forms.scss";
+@import "../sass/component-forms.scss";
+@import "../sass/component-fullcalendar.scss";
+@import "../sass/component-galleria.scss";
+@import "../sass/component-iframe.scss";
+@import "../sass/component-image.scss";
+@import "../sass/component-language-selector.scss";
+@import "../sass/component-link-list.scss";
+@import "../sass/component-link.scss";
+@import "../sass/component-login.scss";
+@import "../sass/component-logout.scss";
+@import "../sass/component-map.scss";
+@import "../sass/component-media-link.scss";
+@import "../sass/component-navigation.scss";
+@import "../sass/component-page-list.scss";
+@import "../sass/component-pagination.scss";
+@import "../sass/component-playlist.scss";
+@import "../sass/component-promo.scss";
+@import "../sass/component-richtext-content.scss";
+@import "../sass/component-search-other.scss";
+@import "../sass/component-site-selector.scss";
+@import "../sass/component-sitecore-form.scss";
+@import "../sass/component-skip-link.scss";
+@import "../sass/component-snippet.scss";
+@import "../sass/component-social-media-share.scss";
+@import "../sass/component-tabs.scss";
+@import "../sass/component-tag-cloud.scss";
+@import "../sass/component-tag-list.scss";
+@import "../sass/component-title.scss";
+@import "../sass/component-toggle.scss";
+@import "../sass/component-twitter.scss";
+@import "../sass/component-video.scss";
+
+
 @import "../sass/overlay.scss";
 @import "../sass/privacy-warning.scss";
 
-@import "../styles/styles.css"; // built by 

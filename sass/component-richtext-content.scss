@@ -10,12 +10,17 @@
     * {
         max-width: 100%;
     }
-    @import "base/richtext/*";
+    @import "base/richtext/_richtext-files-icons.scss";
+@import "base/richtext/_richtext.scss";
+
 }
 .rich-text  {
-    @import "variants/rich-text/*";
+    @import "variants/rich-text/default.scss";
+
 }
 .content {
-    @import "variants/page-content/*";
+    @import "variants/page-content/default.scss";
+
 }
-@import "styles/rich-text/*";
+@import "styles/rich-text/rich-text-lists.scss";
+

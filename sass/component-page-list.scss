@@ -17,6 +17,7 @@
     .field-title {
         font-weight: bold;
     }
-    @import "variants/page-list/*";
+    @import "variants/page-list/default.scss";
+
     @import "base/reset/links";
 }

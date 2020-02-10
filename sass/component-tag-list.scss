@@ -70,5 +70,8 @@
             }
         }
     }
-    @import "variants/tag-list/*";
+    @import "variants/tag-list/default.scss";
+@import "variants/tag-list/Links.scss";
+@import "variants/tag-list/Texts.scss";
+
 }

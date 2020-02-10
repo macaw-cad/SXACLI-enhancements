@@ -35,5 +35,7 @@
             margin-right: $default-padding;
         }
     }
-    @import "styles/forms/*";
+    @import "styles/forms/hints-below.scss";
+@import "styles/forms/labels-above.scss";
+
 }

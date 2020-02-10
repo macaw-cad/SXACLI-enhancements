@@ -1,12 +1,3 @@
-/*
-*  Copyright (c) 2015, Facebook, Inc.
-*  All rights reserved.
-*
-*  This source code is licensed under the BSD-style license found in the
-*  LICENSE file in the root directory of this source tree. An additional grant
-*  of patent rights can be found in the PATENTS file in the same directory.
-*/
-
 var webpack = require("webpack");
 var path = require('path');
 
@@ -18,7 +9,6 @@ var OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-
 // See http://jonnyreeves.co.uk/2016/simple-webpack-prod-and-dev-config/
 function getPlugins() {
 	var plugins = [];
@@ -26,7 +16,7 @@ function getPlugins() {
 	// define the name of the output file. All css will be loaded into this file.
 	plugins.push(
 		new MiniCssExtractPlugin({
-			filename: 'styles/custom.css',
+			filename: 'styles/pre-optimized-min.css',
 			ignoreOrder: true
 		})
 	);
@@ -90,9 +80,51 @@ function getPlugins() {
 	return plugins;
 }
 
+function getSassLoaders() {
+	var sassLoaders = [];
+
+	// Using MiniCssExtractPlugin to write the extracted css output to its own file.
+	sassLoaders.push({
+		loader: MiniCssExtractPlugin.loader,
+		options: {
+			hmr: process.env.NODE_ENV === 'development',
+		}
+	});
+
+	// Use css-loader without resolving url() links - these point to existing artifacts.
+	sassLoaders.push({
+		loader: "css-loader",
+		options: {
+			url: false,
+			sourceMap: true
+		}
+	});
+
+	// Add postcss loader only for production (autoprefixer, css-mqpacker, cssnano),
+	// it breaks the sourcemap required for development.
+	if (isProd) {
+		sassLoaders.push({
+			loader: "postcss-loader",
+			options: {
+				config: {
+					path: './postcss.config.js'
+				}
+			}
+		});
+	}
+
+	sassLoaders.push({
+		loader: "sass-loader",
+		options: {
+			sourceMap: true
+		}
+	});
+
+	return sassLoaders;
+}
+
 module.exports = {
 	context: path.join(__dirname, '.'),
-	// define the entry points. In our case one for client and one for server side.
 	entry: {
 		main: [ './sources/index.ts' ]
 	},
@@ -104,55 +136,19 @@ module.exports = {
 		filename: 'scripts/pre-optimized-min.js'
 	},
 	module: {
-		// Loaders are transformations that take the source of a resource file as the parameter and return the new source.
 		rules: [
 			{
 				test: /\.(ts|tsx)$/,
                 exclude: /node_modules/,
-				use: [
-					{
-						loader: 'ts-loader',
-
-					}
-				]
+				use: [{ loader: 'ts-loader' }]
 			},
 			{
-				// CSS loader using style-loader, css-loader, postcss-loader.
-				// Using MiniCssExtractPlugin to write the output to its own file.
 				test: /\.s?css$/,
-				use: [
-					{
-						loader: MiniCssExtractPlugin.loader,
-						options: {
-							hmr: process.env.NODE_ENV === 'development',
-						}
-					},
-					{
-						loader: "css-loader?url=false"
-					},
-					{
-						loader: "postcss-loader",
-						options: {
-							config: {
-								path: './postcss.config.js'
-							}
-						}
-					},
-					{
-						loader: "sass-loader?sourceMap"
-					},
-					{
-						loader: "sass-bulk-import-loader"
-					}
-				]
+				use: getSassLoaders()
 			},
-			{ test: /\.(png|jpg|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' },
 			{
-				// JSON loader using json-loader
 				test: /\.json$/,
-				use: {
-					loader: 'json-loader'
-				}
+				use: [{ loader: 'json-loader' }]
 			}
 		]
 	},

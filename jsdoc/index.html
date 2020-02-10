@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>Home - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    
+    <h2><a href="index.html">Home</a></h2>
+</nav>
+
+<div id="main">
+    
+
+    
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    
+
+
+    <section class="readme">
+        <article><h2></h2>
+<p>Boilerplate for creating new theme for you Sitecore site.</p>
+<h2>For using Autosynchronizer, you need to complete next steps:</h2>
+<ol>
+<li>
+<p>Download theme boilerplate;</p>
+</li>
+<li>
+<p>Open <em>PathToInstance/Website/App_Config/Include/z.Feature.Overrides</em> (in previous version of sitecore it can be <em>PathToInstance/Website/App_Config/Include/Feature</em>) folder and remove <strong>.disabled</strong> from <strong>z.SPE.Sync.Enabler.Gulp.config.disabled</strong> file;</p>
+</li>
+<li>
+<p>Switch to downloaded theme boilerplate folder</p>
+</li>
+<li>
+<p>Update config file for Gulp tasks. <strong>ThemeRoot/gulp/config.js</strong> file:</p>
+<ol>
+<li><code>serverOptions.server</code> - path to sitecore instance. Example <code>server: 'http://sxa'</code>;</li>
+</ol>
+</li>
+<li>
+<p>If you use Creative exchange skip this step. Open <strong>ThemeRoot/gulp/serverConfig.json</strong></p>
+<ol>
+<li><code>serverOptions.projectPath</code> - path to project, where theme placed. Example <code>projectPath: '/themes'</code>;</li>
+<li><code>serverOptions.themePath</code> - path to basic theme folder from project root. Example <code>themePath: '/Basic2'</code>;</li>
+</ol>
+</li>
+<li>
+<p>Open Theme root folder with command line.</p>
+</li>
+<li>
+<p>Run <code>npm install</code> (<em>node.js and npm should be already installed</em>);</p>
+</li>
+<li>
+<p>If gulp is not yet installed - Install gulp using following command: <code>npm install --global gulp-cli</code></p>
+</li>
+<li>
+<p>Run gulp task which you need: <br/>
+Global tasks:</p>
+<ol>
+<li><code>gulp default</code> or just <code>gulp</code> - starts <code>gulp all-watch</code>.</li>
+<li><code>gulp all-watch</code> - run a list of tasks:<br/>
+<code>sass-watch</code><br/>
+<code>js-watch</code><br/>
+<code>es-watch</code><br/>
+<code>css-watch</code><br/>
+<code>img-watch</code><br/>
+<code>watch-source-sass</code><br/>
+<code>html-watch</code><br/></li>
+</ol>
+<p>For SASS</p>
+<ol>
+<li><code>gulp sass-watch</code> - run a list of tasks:
+<code>watch-component</code>
+<code>watch-base</code>
+<code>watch-styles</code>
+<code>watch-dependency</code></li>
+<li><code>gulp sassComponents</code> - to compile sass styles just for components;</li>
+<li><code>gulp sassStyles</code> - to compile sass additional styles for component;</li>
+<li><code>gulp watch-styles</code> - watch changes under <strong>sass/styles/common</strong> , <strong>sass/styles/content-alignment</strong> , <strong>sass/styles/layout</strong> folders and compile all of them to <strong>styles/styles.css</strong>;</li>
+<li><code>gulp watch-base</code> - watch on changes under  <strong>sass/abstracts/</strong>, <strong>sass/base/</strong> , <strong>sass/components</strong> folders and run compiling of components and styles;</li>
+<li><code>gulp watch-component</code> - watch changes of component styles under <em>sass</em> folder and compile them to <strong>styles</strong> folder;</li>
+<li><code>gulp watch-dependency</code> - watch changes under <strong>sass/styles/</strong> (exluded <strong>sass/styles/common</strong> , <strong>sass/styles/content-alignment</strong> , <strong>sass/styles/layout</strong>) and compile appropriate component;</li>
+</ol>
+<p>For CSS</p>
+<ol>
+<li><code>gulp css-watch</code> - watch on changes of css files under <strong>stytles</strong> folder and upload them to server;</li>
+</ol>
+<p>For JavaScript:</p>
+<ol>
+<li><code>gulp eslint</code> - run eslint for all js in <strong>scripts</strong> folder;</li>
+<li><code>gulp js-watch</code> - watch on changes of js files under <strong>scripts</strong> folder and upload them to server;</li>
+<li><code>gulp es-watch</code> - watch on changes of ES6+ js files under <strong>sources</strong> folder and upload them to server;</li>
+</ol>
+<p>For HTML (if you work with creative exchange)</p>
+<ol>
+<li><code>gulp html-watch</code> - watch changes of html files and upload them to the server;</li>
+</ol>
+<p>For Gulp files</p>
+<ol>
+<li><code>gulp watch-gulp</code> - watch on changes of js and json files under <strong>gulp</strong> folder and upload them to server;</li>
+</ol>
+<p>For Images</p>
+<ol>
+<li><code>gulp img-watch</code> - watch on changes under <strong>images</strong> folder and upload files to server;</li>
+</ol>
+<p>For Sprite</p>
+<ol>
+<li><code>gulp spriteFlag</code> - to create sprite for flags;</li>
+</ol>
+</li>
+<li>
+<p>When watcher starts you need to enter you login and password for Sitecore, for uploading reason.</p>
+</li>
+</ol></article>
+    </section>
+
+
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Feb 10 2020 23:56:02 GMT+0100 (GMT+01:00) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+
+
+</body>
+</html>

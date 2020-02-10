@@ -48,7 +48,10 @@
             font-size: 1em;
         }
     }
-    @import "variants/media-link/*";
+    @import "variants/media-link/default.scss";
+@import "variants/media-link/icon-name-date-and-download-link.scss";
+
     @import "base/richtext/richtext-files-icons";
 }
-@import "styles/media-link/*";
+@import "styles/media-link/media-link-horizontal.scss";
+

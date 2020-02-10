@@ -44,6 +44,12 @@
     .submenu>ul {
         padding-left: 10px;
     }
-    @import "variants/navigation/*";
+    @import "variants/navigation/default.scss";
+
 }
-@import "styles/navigation/*";
+@import "styles/navigation/navigation-fat.scss";
+@import "styles/navigation/navigation-main-horizontal-vertical.scss";
+@import "styles/navigation/navigation-mobile.scss";
+@import "styles/navigation/navigation-sidebar.scss";
+@import "styles/navigation/sitemap-navigation.scss";
+

@@ -64,7 +64,10 @@
         }
     }
 }
-@import "styles/flip/*";
+@import "styles/flip/flip-fade.scss";
+@import "styles/flip/flip-slide-top.scss";
+@import "styles/flip/flip-vertical.scss";
+
 .no-csstransforms3d {
     .flip {
         .Side1 {

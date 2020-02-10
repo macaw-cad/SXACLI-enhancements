@@ -1,7 +1,9 @@
 @import "abstracts/vars";
 @import "abstracts/mixins";
 .event-calendar {
-    @import "base/richtext/*";
+    @import "base/richtext/_richtext-files-icons.scss";
+@import "base/richtext/_richtext.scss";
+
     background: $calendar-bg;
     overflow: hidden;
     box-sizing: border-box;
@@ -40,5 +42,7 @@
     }
 }
 .calendar-tooltip {
-    @import "base/richtext/*";
+    @import "base/richtext/_richtext-files-icons.scss";
+@import "base/richtext/_richtext.scss";
+
 }

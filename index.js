@@ -10,15 +10,38 @@ const uploadScriban = require('@sxa/celt/util/requestChangeScriban');
 
 const gulp = require("gulp");
 const watch = require('gulp-watch');
+const bulkSass = require('gulp-sass-bulk-import');
+const gulpReplace = require('gulp-replace');
 const glob = require("glob");
 const fs = require("fs");
+const path = require("path");
 
 const config = require(global.rootPath + '/gulp/config');
-var runSequence = require('run-sequence').use(gulp);
 
 gulpTaskInit();
 
-// Watch scrips/pre-optimized-min.js and upload if changed - but don't remove if deleted
+// Fix the wildcard imports (is not sass - handled by gulp-sass-bulk-import but does not work over multiple levels)
+// Fix location of "base/.." folder - must be relative due to new build approach using webpack
+gulp.task('fix-sass-for-webpack', function() {
+  gulp
+    .src('sass/*.scss')
+    .pipe(bulkSass())
+    // make @import path relative to sass folder
+    .pipe(gulpReplace(path.join(__dirname, 'sass/').replace(/\\/g,'/'), ''))
+    .pipe( gulp.dest('sass/') );
+
+  gulp
+    .src('sass/*/*.scss')
+    .pipe(gulpReplace('"base/', '"../base/'))
+    .pipe( gulp.dest('sass/') );
+  
+  gulp
+    .src('sass/*/*/*.scss')
+    .pipe(gulpReplace('"base/', '"../../base/'))
+    .pipe( gulp.dest('sass/') );
+});
+
+// Watch scripts/pre-optimized-min.js and upload if changed - but don't remove if deleted
 gulp.task('custom-js-watch', ['login'], () => {
   setTimeout(function () {
     console.log('Watching JS file scripts/pre-optimized-min.js started...'.green);
@@ -33,6 +56,7 @@ gulp.task('custom-js-watch', ['login'], () => {
   })
 });
 
+// Watch styles/pre-optimized-min.css and upload if changed - but don't remove if deleted
 gulp.task('custom-css-watch', ['login'], () => {
   setTimeout(function () {
     console.log('Watching JS file styles/pre-optimized-min.css started...'.green);
@@ -47,58 +71,30 @@ gulp.task('custom-css-watch', ['login'], () => {
   })
 });
 
-// Watch sass, images and Scriban files - sources folder is watched by webpack
+// sources/index.ts + included files (also sass) is watched by webpack
+// Watch images and Scriban files and the generated scripts/pre-optimized-min.js and styles/pre-optimized-min.css
 gulp.task('custom-all-watch', ['login'],
   function () {
     global.isWatching = true;
 
-    // Transpiles the code in the sass folder to css in the styles folder
-    // the Sitecore SXA way: styles, variants, component-*
-    // TODO:
-    // Let webpack do the styling transpilation.
-    // Must be solved by getting sass-bulk-import-loader working.
-    // Other files (main, overlay, privacy-warning and custom components) will then be included
-    // from sources/index.scss 
-    gulp.run('sass-watch');
-    gulp.run('css-watch')
-
     // Upload images
     gulp.run('img-watch')
+    
+    // Upload Scriban files
+    gulp.run('watch-scriban');
 
     // Watch scripts/pre-optimized-min.js and upload
     gulp.run('custom-js-watch')
 
     // Watch styles/pre-optimized-min.css and upload
     gulp.run('custom-css-watch')
-
-    // Upload Scriban files
-    gulp.run('watch-scriban');
-  }
-);
-
-// Transpile sass to styles folder
-gulp.task('build-sass', ['login'],
-  function () {
-    runSequence(
-      'sprite-flag',
-      ['sassStyles', 'sassComponents']
-    );
-  }
-);
-
-// Concat and minify styles folder
-gulp.task('build-css', ['login'],
-  function () {
-    runSequence(
-      'cssOptimise'
-    );
   }
 );
 
 // Deploy all created artifacts to Sitecore:
 // - scripts/pre-optimized-min.js
 // - styles/pre-optimized-min.css
-// - -/scriban/**.*.scriban
+// - -/scriban/**/*.scriban
 // - images/**/* - excluding the images/flags folder
 gulp.task('deploy-to-sitecore', ['login'], function () {
   fileActionResolver({

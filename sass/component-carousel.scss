@@ -140,7 +140,8 @@
             opacity: 0.8;
         }
     }
-    @import "styles/carousel/*";
+    @import "styles/carousel/slide-hero.scss";
+
 }
 @media (max-width: 768px) {
     .carousel {

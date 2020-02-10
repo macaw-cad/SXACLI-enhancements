@@ -38,7 +38,10 @@
             }
         }
     }
-    @import "base/links/*";
-    @import "variants/link-list/*";
+    @import "base/links/_link-button.scss";
+
+    @import "variants/link-list/default.scss";
+
 }
-@import "styles/link-list/*";
+@import "styles/link-list/list-vertical.scss";
+

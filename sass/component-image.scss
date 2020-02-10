@@ -15,4 +15,8 @@
         color: $image-caption-color;
     }
 }
-@import "styles/image/*";
+@import "styles/image/image-default-size.scss";
+@import "styles/image/image-full-size.scss";
+@import "styles/image/image-left.scss";
+@import "styles/image/image-right.scss";
+

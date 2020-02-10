@@ -12,7 +12,9 @@
 }
 
 .event-list {
-    @import "base/richtext/*";
+    @import "base/richtext/_richtext-files-icons.scss";
+@import "base/richtext/_richtext.scss";
+
     background: $event-list-bg;
     h1,
     h2,

@@ -103,6 +103,9 @@
             }
         }
     }
-    @import "variants/breadcrumb/*";
+    @import "variants/breadcrumb/default.scss";
+
 }
-@import "styles/breadcrumb/*";
+@import "styles/breadcrumb/breadcrumb-hide.scss";
+@import "styles/breadcrumb/triangle-separator.scss";
+

@@ -35,7 +35,11 @@
             margin-bottom: 10px;
         }
     }
-    @import "variants/promo/*";
+    @import "variants/promo/default.scss";
+
     @import "base/richtext/richtext";
 }
-@import "styles/promo/*";
+@import "styles/promo/absolute-bottom-link.scss";
+@import "styles/promo/promo-hero.scss";
+@import "styles/promo/promo-shadow.scss";
+

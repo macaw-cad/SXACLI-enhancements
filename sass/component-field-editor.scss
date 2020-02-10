@@ -30,7 +30,8 @@
             vertical-align: middle;
         }
     }
-    @import "variants/field-editor/*";
+    @import "variants/field-editor/default.scss";
+
 }
 .field-editor.position-right {
     .field-table {
