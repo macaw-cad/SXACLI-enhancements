@@ -95,7 +95,6 @@
     "request": "^2.81.0",
     "resolve-url-loader": "^3.1.1",
     "rimraf": "^2.6.2",
-    "sass-bulk-import-loader": "^0.1.1",
     "sass-loader": "^8.0.2",
     "slick-carousel": "^1.8.1",
     "style-loader": "^1.1.3",
