@@ -9,36 +9,5 @@
 </ul>
 <p>Hello world!</p>
 <hr/>
-<div class="digital-clock">00:00:00</div>
 <div class="xaClock" data-hourshift="2">00:00:00</div>
-<hr/>
-<div id="slickcarousel" data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>
-  <div><h3>1</h3></div>
-  <div><h3>2</h3></div>
-  <div><h3>3</h3></div>
-  <div><h3>4</h3></div>
-  <div><h3>5</h3></div>
-  <div><h3>6</h3></div>
-</div>
-<hr/>
-<div class="latte-carousel" id="carousel">
-  <div class="latte-item">
-  <div>1</div>
-  </div>
-  <div class="latte-item">
-  <div>2</div>
-  </div>
-  <div class="latte-item">
-  <div>3</div>
-  </div>
-  <div class="latte-item">
-  <div>4</div>
-  </div>
-  <div class="latte-item">
-  <div>5</div>
-  </div>
-  <div class="latte-item">
-  <div>6</div>
-  </div>
-</div>
 <hr/>
