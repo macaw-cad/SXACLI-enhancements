@@ -2,11 +2,11 @@
 
 As [described by Sitecore](https://doc.sitecore.com/developers/sxa/93/sitecore-experience-accelerator/en/add-a-theme-using-sxa-cli.html):
 
- _SXA CLI is a useful command line tool to automatize tasks for an SXA project. This topic describes how to add a theme using SXA CLI. This can be convenient if you want to have more control over your assets and use a version control system, such as Git._
+ _SXA CLI is a useful command-line tool to automatize tasks for an SXA project. This topic describes how to add a theme using SXA CLI. This can be convenient if you want to have more control over your assets and use a version control system, such as Git._
 
-For us it is important tooling because it provides a developer first approach for our front-end developers in SXA development.
+For us, it is important tooling because it provides a developer-first approach for our front-end developers in SXA development.
 
-Because the out-of-the box functionality was insufficient for our development workflow we extended it with an extensive set of functionality described below.
+Because the out-of-the-box functionality was insufficient for our development workflow we extended it with an extensive set of the functionality described below.
 
 # Blog posts about Sitecore SXA CLI
 
@@ -26,16 +26,16 @@ The out of the box SXA CLI is a bit limited, so we provide al huge set of enhanc
     - Start “watch” – incremental deploy of artifacts
     - Commit changes
 
-- NPM task `npm run fix-sass-for-webpack` to fix the sass code by expanding wildcard imports to the actual imports, otherwise the sass can't be transpiled by webpack
+- NPM task `create-fixed-defaulttheme-sass-for-webpack` (executed by build) to copy and fix the sass code for the default theme as provided by Sitecore in the npm package @sca/Theme by expanding wildcard imports to the actual imports, otherwise, the sass can't be transpiled by webpack
   
 - Webpack based transpile of JavaScript, ES and TypeScript from the `sources` folder into a single `scripts\pre-optimized-min.js` file to be deployed to Sitecore
-    - Support for embedded sourcemaps in development mode for full debugging support in the browser using the original source files
+    - Support for embedded sourcemaps in development mode for full debugging support in the browser using the source files
       ![Code debugging](docs/code_debugging.png)
     - Optimized, minified and no sourcemaps in production mode
   
 
-- Webpack based transpile of SASS from the `sources` and `sass` folder into a single `scripts\pre-optimized-min.css` file to be deployed to Sitecore
-    - Support for embedded sourcemaps in development mode for full tracability of the origin of styles
+- Webpack based transpile of SASS from the `sources` and (through imports) `defaulttheme\sass` folder into a single `scripts\pre-optimized-min.css` file to be deployed to Sitecore
+    - Support for embedded sourcemaps in development mode for full traceability of the origin of styles
   ![Styling traceability](docs/styling_traceability.png)   
     - Optimized, minified and no sourcemaps in production mode
 
@@ -48,13 +48,13 @@ The out of the box SXA CLI is a bit limited, so we provide al huge set of enhanc
   | NPM Command | Description |
   | ----------- | ----------- |
   | npm run doc | Generate documentation for the code in the folder `jsdoc ` |
-  | npm run build-and-watch | Build everything, deploy to Sitecore and go into watch mode | 
-  | npm run watch | Go into watch mode, assume Sitecore is up-to-date with current  code |
-  | npm run build-and-deploy | Build everything and deploy to Sitecore |
+  | npm run build-deploy-watch | Build everything, deploy to Sitecore and go into watch mode | 
+  | npm run watch | Go into watch mode, assume Sitecore is up-to-date with current code |
+  | npm run build-deploy | Build everything and deploy to Sitecore |
   | npm run build | Build everything for development mode - sourcemaps! |
   | npm run build:prod | Build everything in production mode - optimized, no sourcemaps |
   | npm run clean | Clean source tree from generated artifacts |
-  | npm run fix-sass-for-webpack | Fix wildcard imports in sass code base |
+  | npm run create-fixed-defaulttheme-sass-for-webpack | Create fixed defaulttheme\sass code base |
   | npm run publish-theme | Publish the theme from master to web database using PowerShell remoting |
 
 - Example of a TypeScript component written the SXA way at `sources/components/xaclock`
@@ -79,7 +79,7 @@ To get started you could clone this repository and run the `sxa init` and `sxa r
 - Overrides on the provided sass for theming should be done in the file `sources/theme.scss`. This could later be extended to create multiple teams from the same sass codebase by just providing different `theme.sass` files in the transpilation.
 - The file `sources/index.ts` is the entry point of all code (TypeScript, ES, JavaScript, SASS)
 
-ot touching the sass folder allows us to update the sass source code provided by Sitecore when an newer version of the npm package `@sxa/Theme` comes out. In that case only the files in the folder `node_modules/@sxa/Theme/sass` need to be copied over to the `sass` folder in our create theme folder.
+ot touching the sass folder allows us to update the sass source code provided by Sitecore when a newer version of the npm package `@sxa/Theme` comes out. In that case, only the files in the folder `node_modules/@sxa/Theme/sass` need to be copied over to the `sass` folder in our create theme folder.
 
 
 # The implementation
@@ -92,7 +92,7 @@ The most important part of our implementation is:
 
 We kept the original scripts as original as possible.
 
-Most configurations as specified in `gulp/config.js` are respected, although the webpack configurations makes assumptions about the location of source code in the `sources` folder.
+Most configurations as specified in `gulp/config.js` are respected, although the webpack configurations make assumptions about the location of source code in the `sources` folder.
 
 
 # What does the standard Sitecore SXA CLI provide
@@ -111,11 +111,11 @@ See the [Sitecore SXA CLI documentation](https://doc.sitecore.com/developers/sxa
 
 # Sitecore provided readme with SXA CLI created theme
 
-Below is the original readme provided when a theme is scaffolded using the Sitecore SXA CLI. Note that most commands are overriden by the functionality provided in this repository.
+Below is the original readme provided when a theme is scaffolded using the Sitecore SXA CLI. Note that most commands are overridden by the functionality provided in this repository.
 
-## Boilerplate for creating new theme for you Sitecore site. 
+## Boilerplate for creating a new theme for your Sitecore site. 
 
-## For using Autosynchronizer, you need to complete next steps:
+## For using Autosynchronizer, you need to complete the next steps:
 
 1. Download theme boilerplate;
 2. Open *PathToInstance/Website/App_Config/Include/z.Feature.Overrides* (in previous version of sitecore it can be *PathToInstance/Website/App_Config/Include/Feature*) folder and remove **.disabled** from **z.SPE.Sync.Enabler.Gulp.config.disabled** file;
@@ -125,9 +125,9 @@ Below is the original readme provided when a theme is scaffolded using the Sitec
 6. If you use Creative exchange skip this step. Open **ThemeRoot/gulp/serverConfig.json** 
      1. `serverOptions.projectPath` - path to project, where theme placed. Example ` projectPath: '/themes'`;
     2. `serverOptions.themePath` - path to basic theme folder from project root. Example ` themePath: '/Basic2'`;
-5. Open Theme root folder with command line.
+5. Open Theme root folder with the command-line.
 6. Run `npm install` (*node.js and npm should be already installed*);
-7. If gulp is not yet installed - Install gulp using following command: `npm install --global gulp-cli` 
+7. If gulp is not yet installed - Install gulp using the following command: `npm install --global gulp-cli` 
 8. Run gulp task which you need: <br/>
     Global tasks:
     1. `gulp default` or just `gulp` - starts `gulp all-watch`.
@@ -162,16 +162,16 @@ Below is the original readme provided when a theme is scaffolded using the Sitec
     2. `gulp es-watch` - watch on changes of ES6+ js files under **sources** folder and upload them to server;
    
     For HTML (if you work with creative exchange)
-    1. `gulp html-watch` - watch changes of html files and upload them to the server;
+    1. `gulp html-watch` - watch changes of HTML files and upload them to the server;
 
     For Gulp files
-    1. `gulp watch-gulp` - watch on changes of js and json files under **gulp** folder and upload them to server;
+    1. `gulp watch-gulp` - watch on changes of js and JSON files under **gulp** folder and upload them to the server;
 
     For Images
-    1. `gulp img-watch` - watch on changes under **images** folder and upload files to server;
+    1. `gulp img-watch` - watch on changes under **images** folder and upload files to the server;
 
     For Sprite
     1. `gulp spriteFlag` - to create sprite for flags;
 
-9. When watcher starts you need to enter you login and password for Sitecore, for uploading reason.
+9. When watcher starts you need to enter your login and password for Sitecore, for uploading reason.
 

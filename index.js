@@ -20,25 +20,27 @@ const config = require(global.rootPath + '/gulp/config');
 
 gulpTaskInit();
 
-// Fix the wildcard imports (is not sass - handled by gulp-sass-bulk-import but does not work over multiple levels)
+// Fix the wildcard imports of the sass copied from the Sitecore defaylt theme provided in @sxa/Theme.
+// The provided sass is not valid sass - wildcard imports initially handled by gulp-sass-bulk-import,m
+// but does not work over multiple levels.
 // Fix location of "base/.." folder - must be relative due to new build approach using webpack
-gulp.task('fix-sass-for-webpack', function() {
+gulp.task('fix-defaulttheme-sass-for-webpack', function() {
   gulp
-    .src('sass/*.scss')
+    .src('defaulttheme/sass/*.scss')
     .pipe(bulkSass())
     // make @import path relative to sass folder
     .pipe(gulpReplace(path.join(__dirname, 'sass/').replace(/\\/g,'/'), ''))
-    .pipe( gulp.dest('sass/') );
+    .pipe( gulp.dest('defaulttheme/sass/') );
 
   gulp
-    .src('sass/*/*.scss')
+    .src('defaulttheme/sass/*/*.scss')
     .pipe(gulpReplace('"base/', '"../base/'))
-    .pipe( gulp.dest('sass/') );
+    .pipe( gulp.dest('defaulttheme/sass/') );
   
   gulp
-    .src('sass/*/*/*.scss')
+    .src('defaulttheme/sass/*/*/*.scss')
     .pipe(gulpReplace('"base/', '"../../base/'))
-    .pipe( gulp.dest('sass/') );
+    .pipe( gulp.dest('defaulttheme/sass/') );
 });
 
 // Watch scripts/pre-optimized-min.js and upload if changed - but don't remove if deleted
