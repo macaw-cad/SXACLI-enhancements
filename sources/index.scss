@@ -1,5 +1,5 @@
-@import "../defaulttheme/sass/main.scss";
 
+@import "../defaulttheme/sass/main.scss";
 @import "./theme.scss";
 
 // Overwriting colors, margins and fontSizes already used in main.scss with theme values
@@ -17,7 +17,9 @@ a {
     }
 }
 
-@import "../defaulttheme/sass/component-accordion.scss";
+// example of component overwrite
+@import "./theme/sass/component-accordion.scss";
+
 @import "../defaulttheme/sass/component-archive.scss";
 @import "../defaulttheme/sass/component-breadcrumb.scss";
 @import "../defaulttheme/sass/component-carousel.scss";

@@ -5,7 +5,7 @@
 /jsdoc
 
 # files transpiled from sass folder
-/styles 
+/styles
 
 # files transpiled from sources folder
 /scripts
