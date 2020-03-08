@@ -1,20 +1,27 @@
 {
     "compilerOptions": {
         "module": "CommonJS",
-        "target": "es5",        /* Specify ECMAScript target version */
-        "rootDir": "sources",   /* ts source directory */
-        "outDir": "scripts",    /* where to compile javascript files */
+        "target": "es5", /* Specify ECMAScript target version */
+        "rootDir": "./", /* ts source directory */
+        "outDir": "scripts", /* where to compile javascript files */
         "noImplicitAny": true,
         "removeComments": true,
         "preserveConstEnums": true,
         "allowJs": true,
         "esModuleInterop": true,
-        "sourceMap": true
+        "sourceMap": true,
+        "jsx": "react"
     },
     "typeRoots": [
         "node_modules/@types",
         "types"
     ],
-    "include": ["sources/**/*.ts"],
-    "exclude": ["node_modules", "**/*.spec.ts"]
-    }
+    "include": [
+        "sources/**/*.ts",
+        "react-app/**/*.tsx"
+    ],
+    "exclude": [
+        "node_modules",
+        "**/*.spec.ts"
+    ]
+}

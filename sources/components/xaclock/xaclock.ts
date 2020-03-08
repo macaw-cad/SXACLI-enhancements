@@ -1,5 +1,5 @@
 import { XAStatic, XAComponent } from '../../../types/xa';
-declare const XA: XAStatic;
+declare var XA: XAStatic;
 
 import './xaclock.scss';
 

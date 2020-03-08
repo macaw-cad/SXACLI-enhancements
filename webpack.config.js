@@ -126,14 +126,17 @@ function getSassLoaders() {
 module.exports = {
 	context: path.join(__dirname, '.'),
 	entry: {
-		main: [ './sources/index.ts' ]
+		'pre-optimized-min': [ './sources/index.ts' ],
+		'react-components': ['./react-components/src/react-components.ts']
 	},
 	devtool: isProd ? undefined : 'cheap-module-inline-source-map',
 	output: {
 		// Create the output files relative to the current folder, not the default 'dist' folder
 		// This configuration is also applicable to MiniCssExtractPlugin
 		path: __dirname,
-		filename: 'scripts/pre-optimized-min.js'
+		library: 'customerX',
+		libraryTarget: 'umd',
+		filename: 'scripts/[name].js'
 	},
 	module: {
 		rules: [
@@ -148,6 +151,7 @@ module.exports = {
 			},
 			{
 				test: /\.json$/,
+				exclude: /node_modules/,
 				use: [{ loader: 'json-loader' }]
 			}
 		]
@@ -158,9 +162,7 @@ module.exports = {
 	},
 	externals: {
 		// Use external version of jQuery and React
-		jquery: 'jQuery',
-		react: 'React',
-        "react-dom": "ReactDOM"
+		jquery: 'jQuery'
 	},
 	plugins: getPlugins()
 };
