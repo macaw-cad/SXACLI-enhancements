@@ -71,7 +71,7 @@ export function SelectWidget(props: SelectProps) {
     placeholder,
   } = props;
   const { enumOptions, enumDisabled } = options;
-  const emptyValue = multiple ? [] : "";
+  const emptyValue: string[] | string  = multiple ? [] : "";
   return (
     <select
       id={id}
