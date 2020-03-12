@@ -8,20 +8,22 @@ const uploadScriban = require('@sxa/celt/util/requestChangeScriban');
 
 //	Ensure process ends after all Gulp tasks are finished
 
-const gulp = require("gulp");
+const gulp = require('gulp');
 const watch = require('gulp-watch');
 const bulkSass = require('gulp-sass-bulk-import');
 const gulpReplace = require('gulp-replace');
-const glob = require("glob");
-const fs = require("fs");
-const path = require("path");
+const fs = require('fs');
+const path = require('path');
+const through = require('through2');
 
 const config = require(global.rootPath + '/gulp/config');
 
+const uploadFilesGlob = ['scripts/**/*', 'styles/**/*', 'fonts/**/*', 'images/**/*', '!images/flags/**/*'];
+
 gulpTaskInit();
 
-// Fix the wildcard imports of the sass copied from the Sitecore defaylt theme provided in @sxa/Theme.
-// The provided sass is not valid sass - wildcard imports initially handled by gulp-sass-bulk-import,m
+// Fix the wildcard imports of the sass copied from the Sitecore default theme provided in @sxa/Theme.
+// The provided sass is not valid sass - top-level wildcard imports initially handled by gulp-sass-bulk-import
 // but does not work over multiple levels.
 // Fix location of "base/.." folder - must be relative due to new build approach using webpack
 gulp.task('fix-defaulttheme-sass-for-webpack', function() {
@@ -29,7 +31,7 @@ gulp.task('fix-defaulttheme-sass-for-webpack', function() {
     .src('defaulttheme/sass/*.scss')
     .pipe(bulkSass())
     // make @import path relative to sass folder
-    .pipe(gulpReplace(path.join(__dirname, 'sass/').replace(/\\/g,'/'), ''))
+    .pipe(gulpReplace(path.join(__dirname, 'defaulttheme/sass/').replace(/\\/g,'/'), './'))
     .pipe( gulp.dest('defaulttheme/sass/') );
 
   gulp
@@ -43,91 +45,53 @@ gulp.task('fix-defaulttheme-sass-for-webpack', function() {
     .pipe( gulp.dest('defaulttheme/sass/') );
 });
 
-// Watch scripts/pre-optimized-min.js and upload if changed - but don't remove if deleted
-gulp.task('custom-js-watch', ['login'], () => {
-  setTimeout(function () {
-    console.log('Watching JS file scripts/pre-optimized-min.js started...'.green);
-  }, 0);
-  return watch('scripts/pre-optimized-min.js', {
-    verbose: 0,
-    delay: 500
-  }, function (file) {
-    if (file.event === 'add' || file.event === 'change') {
-      fileActionResolver(file);
-    }
-  })
-});
+// Deploy/watch all created artifacts to Sitecore:
+// - -/scriban/**/*.scriban
+// - scripts/**/* (e.g. pre-optimized-min.js, ...)
+// - styles/**/* (e.g. pre-optimized-min.css, ...)
+// - fonts/**/* 
+// - images/**/* - excluding the images/flags folder
 
-// Watch styles/pre-optimized-min.css and upload if changed - but don't remove if deleted
-gulp.task('custom-css-watch', ['login'], () => {
-  setTimeout(function () {
-    console.log('Watching JS file styles/pre-optimized-min.css started...'.green);
-  }, 0);
-  return watch('styles/pre-optimized-min.css', {
-    verbose: 0,
-    delay: 500
-  }, function (file) {
-    if (file.event === 'add' || file.event === 'change') {
-      fileActionResolver(file);
-    }
-  })
-});
 
-// sources/index.ts + included files (also sass) is watched by webpack
-// Watch images and Scriban files and the generated scripts/pre-optimized-min.js and styles/pre-optimized-min.css
+// Watch images and Scriban files and the generated scripts/pre-optimized-min.js (+ other bundles) and styles/pre-optimized-min.css (+ other modules)
+
+// Note that sources/index.ts + included files (also sass) is watched by webpack resulting in one or more files in scripts and styles folders
 gulp.task('custom-all-watch', ['login'],
   function () {
     global.isWatching = true;
 
-    // Upload images
-    gulp.run('img-watch')
-    
     // Upload Scriban files
     gulp.run('watch-scriban');
 
-    // Watch scripts/pre-optimized-min.js and upload
-    gulp.run('custom-js-watch')
-
-    // Watch styles/pre-optimized-min.css and upload
-    gulp.run('custom-css-watch')
+    // Watch other files
+    gulp.watch(uploadFilesGlob, { verbose: 0, delay: 500 }, function (file) {
+      processFile(file);
+    });
   }
 );
 
-// Deploy all created artifacts to Sitecore:
-// - scripts/pre-optimized-min.js
-// - styles/pre-optimized-min.css
-// - -/scriban/**/*.scriban
-// - images/**/* - excluding the images/flags folder
 gulp.task('deploy-to-sitecore', ['login'], function () {
-  fileActionResolver({
-    path: `${__dirname}/scripts/pre-optimized-min.js`,
-    event: 'change'
-  });
-
-  if (fs.existsSync(`${__dirname}/scripts/pre-optimized-min.css`)) {
-    throw Error("Don't include styling in component code files - include in sass/custom-components.scss");
-  }
-
-  fileActionResolver({
-    path: `${__dirname}/styles/pre-optimized-min.css`,
-    event: 'change'
-  });
-
   uploadScriban({
     path: `${__dirname}/-/scriban/metadata.json`
   });
 
-  glob(config.img.path, {
-    ignore: 'images/flags/**/*'
-  }, (err, files) => {
-    if (err) done(err);
-    files.map((entry) => {
-      if (fs.lstatSync(entry).isFile()) {
-        fileActionResolver({
-          path: entry,
-          event: 'change'
-        });
-      }
-    });
-  });
+  gulp.src(uploadFilesGlob, { strict: true, silent: false })
+    .pipe(processFileInPipeline())
 });
+
+const processFileInPipeline = () => {
+  return through.obj({ highWaterMark: 256 }, (file, enc, cb, ) => {
+    processFile(file);
+    return cb(null, file);
+  });
+}
+
+const processFile = (file) => {
+  // console.log(file.path);
+  if (fs.lstatSync(file.path).isFile()) {
+    fileActionResolver({
+      path: file.path,
+      event: 'change'
+    });
+  }
+} 
