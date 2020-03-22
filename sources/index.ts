@@ -3,3 +3,4 @@
 import './jqueryNoConflict';
 import "./index.scss";
 import './components/xaclock/xaclock';
+export * as ReactComponents from '../react-components/src/index';

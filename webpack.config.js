@@ -16,9 +16,9 @@ function getPlugins() {
 	// define the name of the output file. All css will be loaded into this file.
 	plugins.push(
 		new MiniCssExtractPlugin({
-			filename: 'styles/pre-optimized-min.css',
+			filename: 'styles/[name].css',
 			ignoreOrder: true
-		})
+		}),
 	);
 
 	// Always expose NODE_ENV to webpack, you can now use `process.env.NODE_ENV`
@@ -127,14 +127,15 @@ module.exports = {
 	context: path.join(__dirname, '.'),
 	entry: {
 		'pre-optimized-min': [ './sources/index.ts' ],
-		'react-components': ['./react-components/src/react-components.ts']
+		'react-components': ['./react-components/src/react-components.ts'],
+		'grid': ['./sources/grid/grid.ts']
 	},
 	devtool: isProd ? undefined : 'cheap-module-inline-source-map',
 	output: {
 		// Create the output files relative to the current folder, not the default 'dist' folder
 		// This configuration is also applicable to MiniCssExtractPlugin
 		path: __dirname,
-		library: 'customerX',
+		library: 'vitens',
 		libraryTarget: 'umd',
 		filename: 'scripts/[name].js'
 	},
@@ -143,7 +144,15 @@ module.exports = {
 			{
 				test: /\.(ts|tsx)$/,
                 exclude: /node_modules/,
-				use: [{ loader: 'ts-loader' }]
+				use: [
+					{ 
+						loader: 'ts-loader',
+						options: {
+							// This is to always use the same tsconfig, otherwise the tsconfig from CRA will be picked up
+							configFile: 'customTsConfig.json'
+						}
+					}
+				]
 			},
 			{
 				test: /\.s?css$/,
@@ -161,7 +170,7 @@ module.exports = {
 		extensions: ['.ts', '.tsx', '.js', '.jsx']
 	},
 	externals: {
-		// Use external version of jQuery and React
+		// Use external version of jQuery
 		jquery: 'jQuery'
 	},
 	plugins: getPlugins()

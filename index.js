@@ -87,7 +87,6 @@ const processFileInPipeline = () => {
 }
 
 const processFile = (file) => {
-  // console.log(file.path);
   if (fs.lstatSync(file.path).isFile()) {
     fileActionResolver({
       path: file.path,

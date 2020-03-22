@@ -6,8 +6,6 @@ import * as serviceWorker from './serviceWorker';
 
 const element =  document.getElementById('root');
 
-console.log('element', element);
-
 if (element) {
     ReactDOM.render(<App />, document.getElementById('root'));
 }
