@@ -170,13 +170,7 @@ const formData = {
 
 export const OrganizationInformationForm: React.FC = () => {
     const onSubmit = () => {
-        Axios.put('https://local-www.vitens.nl/api/v1/organizationinformation/12345', formData)
-            .then(function (response: any) {
-                console.log(response);
-            })
-            .catch(function (error: any) {
-                console.log(error);
-            });
+        // handle submit
     }
 
     return (

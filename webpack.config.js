@@ -135,7 +135,7 @@ module.exports = {
 		// Create the output files relative to the current folder, not the default 'dist' folder
 		// This configuration is also applicable to MiniCssExtractPlugin
 		path: __dirname,
-		library: 'vitens',
+		library: 'sxatheme',
 		libraryTarget: 'umd',
 		filename: 'scripts/[name].js'
 	},
