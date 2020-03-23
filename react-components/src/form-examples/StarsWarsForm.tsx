@@ -3,7 +3,6 @@ import axios from 'axios';
 import { JsonForm, Schema } from '../form/JsonForm';
 import { FormProps } from 'react-jsonschema-form';
 
-
 export const StarWarsForm: React.FC = () => {
     const [formData, setFormData] = useState<any>();
 

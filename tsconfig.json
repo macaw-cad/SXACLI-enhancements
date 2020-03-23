@@ -7,10 +7,12 @@
         "noImplicitAny": true,
         "removeComments": true,
         "preserveConstEnums": true,
+        "isolatedModules": false,
         "allowJs": true,
         "esModuleInterop": true,
         "sourceMap": true,
-        "jsx": "react"
+        "jsx": "react",
+        "noEmit": false
     },
     "typeRoots": [
         "node_modules/@types",

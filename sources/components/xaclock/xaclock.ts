@@ -21,7 +21,7 @@ XA.component.xaClock = (function ($) {
     function clockUpdate(component: JQuery) { 
         const stateContainer = component[0]; // unwrap
         const showTwelve: boolean = jQuery.data(stateContainer, "showTwelve");
-        const hourShiftData: string = component.attr("data-hourshift");
+        const hourShiftData: string | undefined = component.attr("data-hourshift");
         const hourShift = isNaN(parseInt(hourShiftData, 10)) ? 0 : parseInt(hourShiftData, 10);
         var date = new Date();
         component.css({ 'color': '#fff', 'text-shadow': '0 0 6px #ff0' });
@@ -84,6 +84,7 @@ XA.component.xaClock = (function ($) {
         var $xaClocks = $(".xaClock:not(.initialized)");
         $xaClocks.each(function () {
             var $xaClockModule = $(this);
+            // @ts-ignore
             api.initInstance($(this), $xaClockModule);
             $(this).addClass("initialized");
         });

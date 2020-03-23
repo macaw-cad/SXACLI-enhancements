@@ -1,12 +1,15 @@
 import React from 'react';
 // import { BasicFormExample } from './form-examples/BasicFormExample';
-import { StarWarsForm } from './formWrappers/StarsWarsForm';
+// import { StarWarsForm } from './formWrappers/StarsWarsForm';
+import { OrganizationInformationForm } from './form-examples/OrganizationInformationForm'
 
 function App() {
   return (
-    <div className="container">
+    // todo, get bootstrap css
+    <div className="container" style={{maxWidth: '1000px', margin: '0 auto'}}>
       {/* <BasicFormExample /> */}
-      <StarWarsForm />
+      <OrganizationInformationForm />
+      {/* <StarWarsForm /> */}
     </div>
   );
 }
