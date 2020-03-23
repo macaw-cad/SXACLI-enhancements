@@ -43,7 +43,7 @@ XA.component.xaClock = (function ($) {
             }
         }
     
-        var hours = date.getHours() + hourShift;
+        var hours = (date.getHours() + hourShift) % 24;
         if (showTwelve) hours = twelveHour(hours);
         var h = addZero(hours);
         var m = addZero(date.getMinutes());
