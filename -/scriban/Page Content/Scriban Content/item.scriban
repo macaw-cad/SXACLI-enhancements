@@ -1,0 +1,59 @@
+<h1>Scriban information</h1>
+<h2>Item properties</h2>
+<h3> This is <b>i_item.name:</b> {{i_item.name}}</h3>
+<p><b>i_home:</b> {{i_home}}</p>
+
+{{if i_datasource != null}}
+<p><b>i_datasource:</b> {{i_datasource}}</p>
+<p><b>i_datasource.name:</b> {{i_datasource.name}}</p>
+{{else}}
+<p><b>i_datasource:</b> &lt;null&gt;</p>
+{{end}}
+
+<p><b>i_site.name:</b> {{i_site.name}}</p>
+<p><b>i_page.name:</b> {{i_page.name}}</p>
+<p><b>i_site:</b> {{i_site}}</p>
+<p><b>i_item.title:</b> {{i_item.title}}</p>
+<p><b>i_item.content:</b> {{i_item.content}}</p>
+<p><b>i_item.parent:</b> {{i_item.parent}}</p>
+<p><b>i_item.template_id:</b> "{{i_item.template_id}}"</p>
+<p><b>i_item.has_children:</b> {{i_item.has_children}}</p>
+<p><b>i_item.path:</b> {{i_item.path}}</p>
+<p><b>i_item.url:</b> {{i_item.url}}</p>
+{{if i_item.has_children}}
+    <p>
+        Child items:
+        <ul>
+            {{for i_child in i_item.children}}
+            <li><a href="{{ i_child.url }}">{{ i_child.display_name }}</a></li>
+            {{end}}
+        </ul>
+    </p>
+{{end}}
+
+<h2>Useful Scriban objects</h2>
+<h3>Context Object</h3>
+<p><b>o_context.database:</b> {{o_context.database}}</p>
+<p><b>o_context.user:</b> {{o_context.user}}</p>
+<p><b>o_context.user.name:</b> {{o_context.user.name}}</p>
+<p><b>o_context.domain:</b> {{o_context.domain}}</p>
+<p><b>o_context.is_administrator:</b> {{o_context.is_administrator}}</p>
+<p><b>o_language:</b> {{o_language}}</p>
+
+<h3>Page Mode</h3>
+<p><b>o_pagemode.is_experience_editor:</b> {{o_pagemode.is_experience_editor}}</p>
+<p><b>o_pagemode.is_preview:</b> {{o_pagemode.is_preview}}</p>
+<p><b>o_pagemode.is_normal:</b> {{o_pagemode.is_normal}}</p>
+
+<h2>Some basic Scribban functions</h2>
+<p><b>sc_link using current item to render link</b></p>
+{{if i_datasource != null}}
+<a href="{{ sc_link i_datasource }}">{{ i_datasource.display_name }}</a>
+{{end}}
+<br>
+
+<p><b>sc_parameter retrieves Rendering Parameter values | '{{ sc_parameter 'Placeholder' }}' </b></p>
+<p>This rendering is added to {{ sc_parameter 'Placeholder' }} placeholder.</p>
+<p><b>SampleParameter1:</b> {{ sc_parameter 'SampleParameter1' }}</p>
+<p><b>SampleParameter2:</b> {{ sc_parameter 'SampleParameter2' }}</p>
+<p><b>SampleParameter3:</b> {{ sc_parameter 'SampleParameter3' }}</p>
