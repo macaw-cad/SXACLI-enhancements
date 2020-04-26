@@ -1,4 +1,4 @@
-var exports = module.exports = function (autorun, queue) {
+module.exports = function (autorun, queue) {
     this.running = false;
     this.autorun = autorun ? autorun : true;
     this.queue = queue ? queue : [];

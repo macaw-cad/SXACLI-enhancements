@@ -1,8 +1,9 @@
 const request = require('request');
+require('colors');
 
 const removeScriptPath = '/-/script/v2/master/RemoveMedia';
 
-var exports = module.exports = function (path, server, dest, login, password) {
+module.exports = function (path, server, dest, login, password) {
     const url = `${server}${removeScriptPath}?user=${login}&password=${password}&script=${dest}&sc_database=master&apiVersion=media&scriptDb=master`;
     setTimeout(function () {
         request.get({

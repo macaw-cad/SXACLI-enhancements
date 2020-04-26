@@ -1,8 +1,10 @@
 const fs = require('fs');
 const path = require('path');
 const request = require('request');
+const findUp = require('find-up');
+require('colors');
 
-const UpdateScribanPath = '/-/script/v2/master/ChangeScriban';
+const updateScribanPath = '/-/script/v2/master/ChangeScriban';
 
 function scribanFileFilter(name) {
     return /(\.(scriban)$)/i.test(name);
@@ -29,10 +31,9 @@ function getPayload(variantRootPath) {
     var streams = []
     getScribanFiles(variantRootPath).forEach((scribanFile) => {
         var content = fs.readFileSync(scribanFile, 'utf8');
-
-        var b = new Buffer(content);
+        var b = Buffer.from(content, 'utf-8');
         var obj = {
-            path: scribanFile,
+            path: scribanFile.replace(/\\/g, '/'),
             content: b.toString('base64')
         };
         streams.push(obj);
@@ -56,11 +57,16 @@ module.exports = function (file, server, login, password) {
     }
 
     const variantRootPath = path.dirname(metadataFilePath);
+
     const relativeVariantRootPath = path.relative(global.rootPath, variantRootPath).replace(/\\/g,'/');
+    if (!relativeVariantRootPath.endsWith('/-/scriban')) {
+        console.log(`Scriban import for '${file.path}' failed because 'metadata.json', redering variants and .scriban files MUST be in a folder '.../-/scriban'`.red);
+        return;
+    }
     const url = `${server}${updateScribanPath}?user=${login}&password=${password}&path=${file.path}`;
     var formData = {
         streams: JSON.stringify(getPayload(variantRootPath)),
-        metadata: JSON.stringify(JSON.parse(fs.readFileSync(conf.metadataFilePath)))
+        metadata: JSON.stringify(JSON.parse(fs.readFileSync(metadataFilePath)))
     };
 
     return new Promise((resolve, reject) => {

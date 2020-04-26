@@ -1,9 +1,10 @@
 const fs = require('fs');
 const request = require('request');
+require('colors');
 
 const uploadScriptPath = '/sitecore modules/PowerShell/Services/RemoteScriptCall.ashx';
 
-const exports = module.exports = function (path, server, dest, login, password) {
+module.exports = function (path, server, dest, login, password) {
     const url = `${server}${uploadScriptPath}?user=${login}&password=${password}&script=${dest}&sc_database=master&apiVersion=media&scriptDb=master`;
     const formData = { file: fs.createReadStream(path) };
 
@@ -24,7 +25,7 @@ const exports = module.exports = function (path, server, dest, login, password) 
                 console.log(`Status code: ${httpResponse.statusCode}`.red);
                 console.log(`Answer: ${httpResponse.body}`.red);
             } else {
-                console.log((`Upload of '${dest}' was successful!`).green);
+                console.log(`Upload of '${dest}' was successful!`.green);
             }
         });
     });

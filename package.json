@@ -23,7 +23,7 @@
     "build": "npx npm-run-all --serial clean build:webpack",
     "build:with-react-stuff-included": "npx npm-run-all --serial clean build:webpack build:copy-assets-to-cra",
     "build:prod": "npx npm-run-all --serial clean build:webpack:prod",
-    "clean": "rimraf jsdoc 'Media Library/**/styles' 'Media Library/**/scripts'",
+    "clean": "rimraf jsdoc \"Media Library/**/styles\" \"Media Library/**/scripts\"",
     "publish-theme": "powershell ./publish-theme.ps1",
     "gulp": "gulp",
     "-- INTERNAL BUILD SCRIPTS --": "---------------------------",
@@ -34,7 +34,7 @@
     "deploy-to-sitecore": "gulp --gulpfile tools/gulpfile.js -- deploy-to-sitecore",
     "-- INTERNAL WATCH SCRIPTS --": "---------------------------",
     "watch:gulp": "gulp --gulpfile tools/gulpfile.js-- watch",
-    "watch:webpack": "webpack --config config/webpack.config.js --mode development --watch",
+    "watch:webpack": "webpack --config config/webpack.config.js --mode development --watch"
   },
   "babel": {
     "presets": [

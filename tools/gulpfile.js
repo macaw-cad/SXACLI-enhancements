@@ -7,15 +7,14 @@ const fileActionResolver = require('./util/fileActionResolver').fileActionResolv
 
 // We are in the tools subfolder, set rootPath to root where package.json lives
 global.rootPath = path.resolve(path.join(__dirname, '..'));
-const config = JSON.parse(fs.readFileSync(path.join(global.rootPath + 'config/config.json')));
+const config = JSON.parse(fs.readFileSync(path.join(global.rootPath, 'config/config.json')));
 
 const uploadFilesGlob = [
-  'Rendering Variants/**/*.scriban',
-  'Media Library/**/scripts/**/*',
-  'Media Library/**/styles/**/*',
-  'Media Library/**/fonts/**/*',
-  'Media Library/**/images/**/*',
-  '!Media Library/**/images/flags/**/*'
+  '../Rendering Variants/**/*.scriban',
+  '../Media Library/**/scripts/**/*',
+  '../Media Library/**/styles/**/*',
+  '../Media Library/**/fonts/**/*',
+  '../Media Library/**/images/**/*',
 ];
 
 gulp.task('watch', function () {
@@ -42,7 +41,10 @@ const processFileInPipeline = () => {
   }, (file, enc, cb, ) => {
     processFile({
       path: file.path,
-      event: 'change'
+      event: 'change',
+      stat: {
+        size: fs.statSync(file.path).size
+      }
     });
     return cb(null, file);
   });
@@ -50,7 +52,7 @@ const processFileInPipeline = () => {
 
 const processFile = (file) => {
   if (fs.lstatSync(file.path).isFile()) {
-    console.log(`Processing file '${file.path.replace(path.resolve(path.join(__dirname, '..')) + '\\', '')}'`);
+    console.log(`Processing file '${file.path.replace(global.rootPath + '\\', '')}'`);
     fileActionResolver(file, config.server, config.user.login, config.user.password);
   }
 }

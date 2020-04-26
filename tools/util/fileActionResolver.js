@@ -1,5 +1,4 @@
 const path = require('path');
-const findUp = require('find-up');
 const deleteFile = require('./requestDeleteFile');
 const changeFile = require('./requestChangeFile');
 const changeScriban =  require('./requestChangeScriban');
@@ -9,7 +8,7 @@ const queue = new Queue();
 module.exports.queueInstance = queue;
 module.exports.fileActionResolver = function (file, server, login, password) {
     if (file.path.indexOf('.scriban') > -1) {
-        return queue.add(() => changeScriban(file));
+        return queue.add(() => changeScriban(file, server, login, password));
     }
     if (file.event == 'change' || file.event == 'add') {
         return queue.add(() => changeFile(file.path, server, mediaLibraryDestinationPath(file), login, password));
