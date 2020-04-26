@@ -19,8 +19,8 @@
         "types"
     ],
     "include": [
-        "sources/**/*.ts",
-        "react-app/**/*.tsx"
+        "Media Library/**/*.ts",
+        "Media Library/**/*.tsx", "local_modules/sxa-types/xa.d.ts"
     ],
     "exclude": [
         "node_modules",

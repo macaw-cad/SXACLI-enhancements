@@ -1,0 +1,14 @@
+{
+  "name": "sxa-types",
+  "version": "1.0.0",
+  "description": "TypeScript type definitions for Sitecore SXA",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "SXA",
+    "TypeScript"
+  ],
+  "author": "Serge van den Oever",
+  "license": "MIT"
+}

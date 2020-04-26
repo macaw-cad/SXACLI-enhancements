@@ -1,0 +1,11 @@
+@import "./styles/container/bordered.scss";
+@import "./styles/container/title-row-box.scss";
+
+@import "abstracts/mixins";
+@import "abstracts/vars";
+.container {
+    padding: 0;
+	.component-content {
+        @include clearfix();
+    }
+}

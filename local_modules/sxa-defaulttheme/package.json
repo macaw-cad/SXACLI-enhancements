@@ -1,0 +1,27 @@
+{
+  "name": "sxa-defaulttheme",
+  "version": "1.0.0",
+  "description": "A preprocessed version of the Sitecore SXA @sxa/Theme for consumption by webpack",
+  "scripts": {
+    "build": "npm run build:sass && npm run build:images && npm run build:flags && rimraf images/flags",
+    "build:sass": "rimraf sass && copyfiles --all --up 3 ./node_modules/@sxa/Theme/sass/** . && gulp --gulpfile gulpfile.js -- fix-defaulttheme-sass-for-webpack",
+    "build:images": "rimraf images && copyfiles --all --up 3 ./node_modules/@sxa/Theme/images/** .",
+    "build:flags": "gulp --gulpfile gulpfile.js -- sprite-flag",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "SXA",
+    "Theme"
+  ],
+  "author": "Serge van den Oever",
+  "license": "MIT",
+  "devDependencies": {
+    "@sxa/Theme": "^1.0.1",
+    "copyfiles": "^2.2.0",
+    "gulp": "^4.0.2",
+    "gulp-replace": "^1.0.0",
+    "gulp-sass-bulk-import": "^1.0.1",
+    "path": "^0.12.7",
+    "rimraf": "^3.0.2"
+  }
+}

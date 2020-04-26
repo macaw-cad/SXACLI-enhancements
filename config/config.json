@@ -1,0 +1,7 @@
+{
+    "server": "https://sergesc.dev.local",
+    "user": { 
+        "login": "sitecore\\admin", 
+        "password": "b" 
+    }
+}

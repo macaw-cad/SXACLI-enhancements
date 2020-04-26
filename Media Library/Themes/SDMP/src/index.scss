@@ -1,0 +1,72 @@
+
+@import "./theme/sass/main.scss";
+@import "./theme.scss";
+
+// Overwriting colors, margins and fontSizes already used in main.scss with theme values
+body {
+    background: $page-bg;
+    &.on-page-editor {
+        background: $page-bg-editor !important;
+    }
+}
+
+a {
+    color: $text-basic;
+    &:hover {
+        color: $text-basic-active;
+    }
+}
+
+// example of component overwrite
+@import "./theme/sass/component-accordion.scss";
+@import "./theme/sass/component-customform.scss";
+
+// don't make any changes to the defaulttheme files because they will be overwritten on the build
+@import "~sxa-defaulttheme/sass/component-archive.scss";
+@import "~sxa-defaulttheme/sass/component-breadcrumb.scss";
+@import "~sxa-defaulttheme/sass/component-carousel.scss";
+@import "~sxa-defaulttheme/sass/component-column-splitter.scss";
+@import "~sxa-defaulttheme/sass/component-container.scss";
+@import "~sxa-defaulttheme/sass/component-divider.scss";
+@import "~sxa-defaulttheme/sass/component-event-list.scss";
+@import "~sxa-defaulttheme/sass/component-facebook-comments.scss";
+@import "~sxa-defaulttheme/sass/component-feed.scss";
+@import "~sxa-defaulttheme/sass/component-field-editor.scss";
+@import "~sxa-defaulttheme/sass/component-file-list.scss";
+@import "~sxa-defaulttheme/sass/component-flash.scss";
+@import "~sxa-defaulttheme/sass/component-flip.scss";
+@import "~sxa-defaulttheme/sass/component-forms.scss";
+@import "~sxa-defaulttheme/sass/component-forms.scss";
+@import "~sxa-defaulttheme/sass/component-fullcalendar.scss";
+@import "~sxa-defaulttheme/sass/component-galleria.scss";
+@import "~sxa-defaulttheme/sass/component-iframe.scss";
+@import "~sxa-defaulttheme/sass/component-image.scss";
+@import "~sxa-defaulttheme/sass/component-language-selector.scss";
+@import "~sxa-defaulttheme/sass/component-link-list.scss";
+@import "~sxa-defaulttheme/sass/component-link.scss";
+@import "~sxa-defaulttheme/sass/component-login.scss";
+@import "~sxa-defaulttheme/sass/component-logout.scss";
+@import "~sxa-defaulttheme/sass/component-map.scss";
+@import "~sxa-defaulttheme/sass/component-media-link.scss";
+@import "~sxa-defaulttheme/sass/component-navigation.scss";
+@import "~sxa-defaulttheme/sass/component-page-list.scss";
+@import "~sxa-defaulttheme/sass/component-pagination.scss";
+@import "~sxa-defaulttheme/sass/component-playlist.scss";
+@import "~sxa-defaulttheme/sass/component-promo.scss";
+@import "~sxa-defaulttheme/sass/component-richtext-content.scss";
+@import "~sxa-defaulttheme/sass/component-search-other.scss";
+@import "~sxa-defaulttheme/sass/component-site-selector.scss";
+@import "~sxa-defaulttheme/sass/component-sitecore-form.scss";
+@import "~sxa-defaulttheme/sass/component-skip-link.scss";
+@import "~sxa-defaulttheme/sass/component-snippet.scss";
+@import "~sxa-defaulttheme/sass/component-social-media-share.scss";
+@import "~sxa-defaulttheme/sass/component-tabs.scss";
+@import "~sxa-defaulttheme/sass/component-tag-cloud.scss";
+@import "~sxa-defaulttheme/sass/component-tag-list.scss";
+@import "~sxa-defaulttheme/sass/component-title.scss";
+@import "~sxa-defaulttheme/sass/component-toggle.scss";
+@import "~sxa-defaulttheme/sass/component-twitter.scss";
+@import "~sxa-defaulttheme/sass/component-video.scss";
+
+@import "~sxa-defaulttheme/sass/overlay.scss";
+@import "~sxa-defaulttheme/sass/privacy-warning.scss";

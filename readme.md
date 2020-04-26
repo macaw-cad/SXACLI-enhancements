@@ -109,6 +109,14 @@ It does this through a **watch** mode, where transpile and package is executed o
 
 See the [Sitecore SXA CLI documentation](https://doc.sitecore.com/developers/sxa/93/sitecore-experience-accelerator/en/add-a-theme-using-sxa-cli.html) and the documentation below for more information. 
 
+#
+
+
+
+
+
+
+
 # Sitecore provided readme with SXA CLI created theme
 
 Below is the original readme provided when a theme is scaffolded using the Sitecore SXA CLI. Note that most commands are overridden by the functionality provided in this repository.
