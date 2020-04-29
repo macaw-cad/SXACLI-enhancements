@@ -24,8 +24,8 @@ const processFileInPipeline = () => {
     highWaterMark: 256
   }, (file, enc, cb, ) => {
     if (fs.lstatSync(file.path).isFile()) {
-      console.log(`Processing file '${file.path.replace(global.rootPath + '\\', '')}'`);
-      fileActionResolver(event, file.path, config.server, config.user.login, config.user.password);
+      // console.log(`Processing file '${file.path.replace(global.rootPath + '\\', '')}'`);
+      fileActionResolver('change', file.path, config.server, config.user.login, config.user.password);
     }
     return cb(null, file);
   });
@@ -45,9 +45,8 @@ const fullDeploy = () => {
 const watch = () => {
   gulp.watch(uploadFilesGlob, {
     delay: 500,
-    ignoreInitial: false
   }).on('all', (fileEvent, filePath) => {
-    console.log(`Changed file [${fileEvent}] '${filePath.replace(global.rootPath + '\\', '')}'`);
+    // console.log(`Changed file [${fileEvent}] '${filePath.replace(global.rootPath + '\\', '')}'`);
     fileActionResolver(fileEvent, filePath, config.server, config.user.login, config.user.password);
   });
 }

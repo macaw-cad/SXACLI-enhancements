@@ -74,20 +74,34 @@ In a few simple steps, you can get up and running with SXA Umbrella:
 The SXA Umbrella front-end folder is organized as follows:
 
 
-# NPM Scripts to support team development
+# NPM Scripts to support team development workflow
 
-The full set of NPM scripts available to support team development:
+The NPM scripts are provided for the optimal team development workflow.
 
-| NPM Command | Description |
-| ----------- | ----------- |
-| npm run build-deploy-watch | Build everything, deploy to Sitecore and go into watch mode | 
-| npm run watch | Go into watch mode, assume Sitecore is up-to-date with current code |
-| npm run build-deploy | Build everything and deploy to Sitecore |
-| npm run build | Build everything for development mode - sourcemaps! |
-| npm run build:prod | Build everything in production mode - optimized, no sourcemaps; result will be in the `dist` folder (*) |
-| npm run clean | Clean source tree from generated artifacts |
+## build-deploy-watch
 
-(*) Note that during a production build (to be executed on a build server) the resulting artifacts for themes and grids will end-up in the `dist` folder in the root of the front-end folder. These artifacts should be part of the deployment package for Sitecore together with a custom script to deploy the files as items in Sitecore. The rendering variant items should be deployed using Unicorn. 
+Execute `npm run build-deploy-watch` to build everything, deploy to Sitecore and go into watch mode. This is the first thing to do after a pull request to get the latest changes made by the team, and make sure that these changes are reflected on the Sitecore server used for your daily development work. The JavaScript and CSS bundles are build in *development* mode and include sourcemaps for optimal support for debugging.
+
+Make sure that the Visual Studio solution containing Possible Unicorn items to be synchronized is built and deployed first (if applicable).
+
+## watch
+
+Execute `npm run watch` to go directly into watch mode. You can do this if you start your work without getting the changes made by your team first to get. You get a quick start of the day and can continue with your work. The JavaScript and CSS bundles are build in *development* mode and include sourcemaps for optimal support for debugging.
+
+
+## build:dist
+
+Execute `npm run build:dist` when you want to create a *production* build of your code to the `dist` folder. This command is normally executed on a build server.
+
+The JavaScript bundles are uglified and minified and do not contain sourcemaps. The CSS bundles are minified and prepared for multiple browser support and do not cntsin sourcemaps.
+
+Note that during this build the resulting artifacts for themes and grids will end-up in the `dist` folder in the root of the front-end folder. These artifacts should be part of the deployment package for Sitecore together with a custom script to deploy the files as items in Sitecore. Preferably don't deploy these files using unicorn, because the build of JavaScript and CSS bundles should be executed on s build server
+
+The rendering variant items should be deployed using Unicorn, because these files need to be deployed to Sitecore "as is", no build procvess is needed.
+
+## Other NPM scripts
+
+Note that there are many more "internal" npm scripts available in the `package.json`, but those are not needed in your day-to-day work.
 
 # Writing components the SXA way
 

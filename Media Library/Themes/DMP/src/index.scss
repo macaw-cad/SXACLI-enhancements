@@ -19,7 +19,6 @@ a {
 
 // example of component overwrite
 @import "./theme/sass/component-accordion.scss";
-@import "./theme/sass/component-customform.scss";
 
 // don't make any changes to the defaulttheme files because they will be overwritten on the build
 @import "~sxa-defaulttheme/sass/component-archive.scss";

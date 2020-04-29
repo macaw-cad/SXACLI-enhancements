@@ -34,6 +34,32 @@
             "skipFiles": [
                 "<node_internals>/**"
             ]
+        },
+
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Webpack: development",
+            "program": "${workspaceFolder}/node_modules/webpack/bin/webpack.js",
+            "args": [
+                "--env.NODE_ENV=development",
+                "--mode=development",
+                "--config", "webpack.config.js"
+            ],
+            "cwd": "${workspaceFolder}/config"
+        },
+
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Webpack: production",
+            "program": "${workspaceFolder}/node_modules/webpack/bin/webpack.js",
+            "args": [
+                "--env.NODE_ENV=production",
+                "--mode=production",
+                "--config", "webpack.config.js"
+            ],
+            "cwd": "${workspaceFolder}/config"
         }
     ]
 }
