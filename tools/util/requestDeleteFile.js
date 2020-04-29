@@ -3,30 +3,24 @@ require('colors');
 
 const removeScriptPath = '/-/script/v2/master/RemoveMedia';
 
-module.exports = function (path, server, dest, login, password) {
-    const url = `${server}${removeScriptPath}?user=${login}&password=${password}&script=${dest}&sc_database=master&apiVersion=media&scriptDb=master`;
-    setTimeout(function () {
+module.exports = function (server, destinationPath, login, password) {
+    const url = `${server}${removeScriptPath}?user=${login}&password=${password}&path=${destinationPath}&database=master`;
+    return new Promise((resolve, reject) => {
+        setTimeout(function () { resolve(); }, 200);
         request.get({
             url: url,
             agentOptions : {
                 rejectUnauthorized :false
             }
         }, (err, httpResponse, body) => {
-            try {
-                var response = JSON.parse(body);
-                if (!response.result) {
-                    console.log(`Removing of '${dest}' failed: ${response.Reason}`.red);
-                } else {
-                    console.log(`Removing of '${dest}' was successful!`.green);
-                }
-                if (err) {
-                    console.log(`Removing of '${dest}' failed: ${err}`.red);
-                }
-            } catch (e) {
-                console.log(`Removing of '${dest}' failed`.red);
-                console.log(`Status code: ${httpResponse.statusCode}`.red);
-                console.log(`Answer: ${httpResponse.body}`.red);
+            if (err) {
+                console.log(`Removing of '${destinationPath}' failed: ${err}`.red);
+            } else if (httpResponse.statusCode !== 200) {
+                console.log(`Removing of '${destinationPath}' failed`.red);
+                console.log(`Status code: ${httpResponse.statusCode}, status message: ${httpResponse.statusMessage}`.red);
+            } else {
+                console.log(`Removing of '${destinationPath}' was successful!`.green);
             }
         });
-    }, 500)
+    });
 }

@@ -1,77 +1,102 @@
+<div align="center">
+<h1>Umbrella for Sitecore SXA</h1>
+<p>
+SXA Umbrella provides the project structure and tooling to optimize the front-end team development workflow in any Sitecore SXA project. 
+</p>
+</div>
+
 # Introduction
 
-As [described by Sitecore](https://doc.sitecore.com/developers/sxa/93/sitecore-experience-accelerator/en/add-a-theme-using-sxa-cli.html):
+The roots of SXA Umbrella lie in the [SXACLI-enhancements]() project where we embraced the SXA CLI tooling provided by Sitecore that provided a developer-first approach for our front-end developers in SXA development. The out-of-the-box SXA CLI functionality was insufficient for our development workflow so we extended it with an extensive set of additional functionality to support the team development cycle. The SXACLI-enhancement project was built on top of the code-base of SXA CLI and was limited to handle a single SXA theme and the creation of rendering variants using Scriban for a single SXA site. This approach was too limited for our SXA projects, so we decided to do a complete rewrite of the code-base to support the creation of multiple **themes**, **base themes**, **theme extensions**, **grids**, and **rendering variant** collections for multiple sites (for example a shared site and multiple other sites). 
 
- _SXA CLI is a useful command-line tool to automatize tasks for an SXA project. This topic describes how to add a theme using SXA CLI. This can be convenient if you want to have more control over your assets and use a version control system, such as Git._
+# SXA Umbrella enhancements over standard SXA CLI
 
-For us, it is important tooling because it provides a developer-first approach for our front-end developers in SXA development.
+The out-of-the-box SXA CLI is a bit limited. It only supports a single gulp task, this task sync's all changes made in the project to Sitecore. So only if you change something it will be deployed to Sitecore. in SXA Umbrella we provide a huge set of enhanced features
 
-Because the out-of-the-box functionality was insufficient for our development workflow we extended it with an extensive set of the functionality described below.
+## Support for a team development cycle
+    
+A Sitecore SXA project is team-work, so the tooling must support a typical team development cycle:
 
-# Blog posts about Sitecore SXA CLI
+- Pull the latest code from source control
+- Build all artifacts and do a full deploy to a personal Sitecore instance
+- Start watch node for incremental deploy of changed artifacts to Sitecore
+- Commit changes to source-control
 
-The blog posts below contain some important information to get the initial configuration of your system in good shape to start working with Sitecore SXA CLI:
-
-- [Sitecore 9.3 - create a custom theme for SXA using SXA CLI](https://www.sergevandenoever.nl/sitecore-93-custom-theme-with-SXA-CLI/)
-- [Sitecore 9.3 SXA CLI - get item fields](https://www.sergevandenoever.nl/Sitecore-93-SXA-CLI-GetItemFields/)
-- [Sitecore SXA theme investigation](https://www.sergevandenoever.nl/Sitecore-SXA-Theme-Investigation/)
-
-# SXA CLI enhancements
-
-The out of the box SXA CLI is a bit limited, so we provide al huge set of enhanced features:
-
-- Support for a team development cycle:
-    - Pull the latest code from source control
-    - Build all artifacts and full deploy to personal Sitecore instance
-    - Start “watch” – incremental deploy of artifacts
-    - Commit changes
-
-- NPM task `create-fixed-defaulttheme-sass-for-webpack` (executed by build) to copy and fix the sass code for the default theme as provided by Sitecore in the npm package @sca/Theme by expanding wildcard imports to the actual imports, otherwise, the sass can't be transpiled by webpack
+## Webpack compatible SASS
   
-- Webpack based transpile of JavaScript, ES and TypeScript from the `sources` folder into a single `scripts\pre-optimized-min.js` file to be deployed to Sitecore
-    - Support for embedded sourcemaps in development mode for full debugging support in the browser using the source files
-      ![Code debugging](docs/code_debugging.png)
-    - Optimized, minified and no sourcemaps in production mode
+For modern front-end development, we need a bundler for the creation of JavaScript and CSS bundles. Webpack is a good bundler that we use in SXA Umbrella. The problem is that the default Sitecore theme code as delivered in the NPM module `sxa/Theme`, and copied into the project by SXA CLI, is not Webpack compatible due to non-standard SASS language constructs used in the code-base (wildcard imports). SXA Umbrella provides an NPM package `sxa-defaulttheme` in the `local_modules` where the issues are fixed ad the default provided the is turned into a Webpack compatible code-base.
   
+## Webpack based scripts transpilation
 
-- Webpack based transpile of SASS from the `sources` and (through imports) `defaulttheme\sass` folder into a single `scripts\pre-optimized-min.css` file to be deployed to Sitecore
-    - Support for embedded sourcemaps in development mode for full traceability of the origin of styles
-  ![Styling traceability](docs/styling_traceability.png)   
-    - Optimized, minified and no sourcemaps in production mode
+SXA Umbrella provides Webpack based transpilation of JavaScript, ES and TypeScript from the `src` folder into a single `scripts\pre-optimized-min.js` file to be deployed to Sitecore:
 
-- Full configuration for TypeScript compilation
+- Support for embedded sourcemaps in *development* mode for full debugging support in the browser using the source files
+  ![Code debugging](docs/code_debugging.png)
+- Optimized, minified and no sourcemaps in *production* mode
 
-- Script `create-scriban-metadatajson.ps1` for the creation of the missing and undocumented `-/scriban/metadata.json` file
+## Webpack based styles transpilation
 
-- Full set of NPM commands to support team development:
+SXA Umbrella provides Webpack based transpilation of SASS from the `src` folder and (through imports) from the  `sxa-defaulttheme` node module into a single `scripts\pre-optimized-min.css` file to be deployed to Sitecore
+    
+- Support for embedded sourcemaps in *development* mode for full traceability of the origin of styles
+![Styling traceability](docs/styling_traceability.png)   
+- Optimized, minified and no sourcemaps in *production* mode
 
-  | NPM Command | Description |
-  | ----------- | ----------- |
-  | npm run doc | Generate documentation for the code in the folder `jsdoc ` |
-  | npm run build-deploy-watch | Build everything, deploy to Sitecore and go into watch mode | 
-  | npm run watch | Go into watch mode, assume Sitecore is up-to-date with current code |
-  | npm run build-deploy | Build everything and deploy to Sitecore |
-  | npm run build | Build everything for development mode - sourcemaps! |
-  | npm run build:prod | Build everything in production mode - optimized, no sourcemaps |
-  | npm run clean | Clean source tree from generated artifacts |
-  | npm run create-fixed-defaulttheme-sass-for-webpack | Create fixed defaulttheme\sass code base |
-  | npm run publish-theme | Publish the theme from master to web database using PowerShell remoting |
+## Full configuration for TypeScript compilation
 
-- Example of a TypeScript component written the SXA way at `sources/components/xaclock`
+[TypeScript - JavaScript that scales](https://www.typescriptlang.org/). The tag-line on the TypeScript site says it all. When working in a team (even a team of one) type-checking is an invaluable tool to prevent issues that can be prevented easily by a computer. SXA Umbrella comes with batteries included by providing an NPM package `sxa-styles` in the `local_modules` providing the TypeScript types for the XA library to build Sitecore SXA compatible components the SXA way
 
-- TypeScript types for SXA way of writing components at  `types/xa.d.ts`
+## Minimal configuration
+
+The configuration for SXA Umbrella is as minimal as possible due to convention over configuration. The folder structure provides information about what should be deployed where. We need to configure things like:
+- The target Sitecore server and credentials for deployment (config/config.json)
+- Per rendering variant collection the GUID of the site to deploy to
+- Per theme (base theme, theme, extension theme, grid) we need an entry in the Webpack configuration 
+
+# How to get started
+
+In a few simple steps, you can get up and running with SXA Umbrella:
+
+1. Get a Sitecore 9.3 environment with SXA enabled
+2. Create a tenant `DMP` with a site `DMP Site` (DMP stands for Digital Marketing Platform) 
+3. Navigate to https://github.com/macaw-interactive/sxa-umbrella, and download a zip file with the latest code
+4. Unzip the downloaded zip file into a convenient folder for your front-end code  
+5. On the Sitecore server open `PathToInstance/Website/App_Config/Include/z.Feature.Overrides` (in previous version of Sitecore it can be `PathToInstance/Website/App_Config/Include/Feature`) folder and remove `.disabled` from the `z.SPE.Sync.Enabler.Gulp.config.disabled` file
+6. Switch to the front-end code folder
+7. Update the `config/config.json` file to reflect your Sitecore server and credentials
+8. Open the front-end code folder with the command-line
+9. Run `npm install` (*node.js and npm should be already installed*)
+10. Configure the `metadata.json` file with the GUID of the site to deploy to
+11. Run `npm run build-deploy-watch` to kickstart the whole process
+
+# SXA Umbrella folder structure
+
+The SXA Umbrella front-end folder is organized as follows:
+
+
+# NPM Scripts to support team development
+
+The full set of NPM scripts available to support team development:
+
+| NPM Command | Description |
+| ----------- | ----------- |
+| npm run build-deploy-watch | Build everything, deploy to Sitecore and go into watch mode | 
+| npm run watch | Go into watch mode, assume Sitecore is up-to-date with current code |
+| npm run build-deploy | Build everything and deploy to Sitecore |
+| npm run build | Build everything for development mode - sourcemaps! |
+| npm run build:prod | Build everything in production mode - optimized, no sourcemaps; result will be in the `dist` folder (*) |
+| npm run clean | Clean source tree from generated artifacts |
+
+(*) Note that during a production build (to be executed on a build server) the resulting artifacts for themes and grids will end-up in the `dist` folder in the root of the front-end folder. These artifacts should be part of the deployment package for Sitecore together with a custom script to deploy the files as items in Sitecore. The rendering variant items should be deployed using Unicorn. 
+
+# Writing components the SXA way
+
+There is an example of a TypeScript component written the SXA way at `sources/components/xaclock`.
+
+TypeScript types for SXA way of writing components is available as  `sxa-types/xa`.
+
+*More information will be added for building components the SXA way*
    
-We also provide some simple scripts:
-
-- `node runGulpTask.js <task>` to execute one or more gulp task directly
-- `node uploadFiles.js <files>` to trigger upload to Sitecore of one or more files, supporting wildcards
-- `node uploadScriban.js` upload the Scriban files to Sitecore
-- `.\get-itemfields.ps1 <Sitecore-item-path>` to get information of the internal names of the fields of an item
-
-# Getting started
-
-To get started you could clone this repository and run the `sxa init` and `sxa register <instanceUrl>` commands as described in the [documentation](https://doc.sitecore.com/developers/sxa/93/sitecore-experience-accelerator/en/add-a-theme-using-sxa-cli.html) to get it configured for your system.
-
 # Working with the source code
 
 - We tried not to touch the sass folder at all, except for the requirement to run the `npm run fix-sass-for-webpack` task to be executed to modify the supplied codebase to work with webpack.
@@ -109,77 +134,34 @@ It does this through a **watch** mode, where transpile and package is executed o
 
 See the [Sitecore SXA CLI documentation](https://doc.sitecore.com/developers/sxa/93/sitecore-experience-accelerator/en/add-a-theme-using-sxa-cli.html) and the documentation below for more information. 
 
-#
+# Blog posts about Sitecore SXA CLI
+
+The blog posts below contain some important information to get the initial configuration of your system in good shape to start working with Sitecore SXA CLI:
+
+- [Sitecore 9.3 - create a custom theme for SXA using SXA CLI](https://www.sergevandenoever.nl/sitecore-93-custom-theme-with-SXA-CLI/)
+- [Sitecore 9.3 SXA CLI - get item fields](https://www.sergevandenoever.nl/Sitecore-93-SXA-CLI-GetItemFields/)
+- [Sitecore SXA theme investigation](https://www.sergevandenoever.nl/Sitecore-SXA-Theme-Investigation/)
+
+sxa-defaulttheme:
+
+  NPM task `create-fixed-defaulttheme-sass-for-webpack` (executed by build) to copy and fix the sass code for the default theme as provided by Sitecore in the npm package @sca/Theme by expanding wildcard imports to the actual imports, otherwise, the sass can't be transpiled by webpack
 
 
+# Frequently asked questions
 
+### Why is the `config/config.json` file a JSON file and not JavaScript?
 
+It should be easy for tools to read the configuration settings, also for non-JavaScript tools like PowerShell scripts.
 
+### Why do I need to add an entry per theme in the Webpack configuration file?
 
+The file `config\webpack.config.js` contains multiple output configurations as shown in the [multi-compiler](https://github.com/webpack/webpack/tree/master/examples/multi-compiler) example. We could easily automate the generation of the required configurations if all themes needed to be compiled alike, but we see potential cases where a different configuration is required. A good example is when a theme contains additions output configurations for a React bundle. 
 
-# Sitecore provided readme with SXA CLI created theme
+### Why does a rendering variants collection for a web site to be in a folder `-/scriban`?
 
-Below is the original readme provided when a theme is scaffolded using the Sitecore SXA CLI. Note that most commands are overridden by the functionality provided in this repository.
+The used end-point for uploading Scriban files checks the Scriban file paths for the occurence of the string `-/scriban` to determine the relative path within the folder `<sites>/Presentation/Rendering Variants` folder to deploy to.
 
-## Boilerplate for creating a new theme for your Sitecore site. 
+### Can the front-end folder be partitioned into multiple deployment packages?
 
-## For using Autosynchronizer, you need to complete the next steps:
-
-1. Download theme boilerplate;
-2. Open *PathToInstance/Website/App_Config/Include/z.Feature.Overrides* (in previous version of sitecore it can be *PathToInstance/Website/App_Config/Include/Feature*) folder and remove **.disabled** from **z.SPE.Sync.Enabler.Gulp.config.disabled** file;
-3. Switch to downloaded theme boilerplate folder
-4. Update config file for Gulp tasks. **ThemeRoot/gulp/config.js** file:
-    1. `serverOptions.server` - path to sitecore instance. Example `server: 'http://sxa'`;
-6. If you use Creative exchange skip this step. Open **ThemeRoot/gulp/serverConfig.json** 
-     1. `serverOptions.projectPath` - path to project, where theme placed. Example ` projectPath: '/themes'`;
-    2. `serverOptions.themePath` - path to basic theme folder from project root. Example ` themePath: '/Basic2'`;
-5. Open Theme root folder with the command-line.
-6. Run `npm install` (*node.js and npm should be already installed*);
-7. If gulp is not yet installed - Install gulp using the following command: `npm install --global gulp-cli` 
-8. Run gulp task which you need: <br/>
-    Global tasks:
-    1. `gulp default` or just `gulp` - starts `gulp all-watch`.
-    2. `gulp all-watch` - run a list of tasks:<br/>
-            `sass-watch`<br/>
-            `js-watch`<br/>
-            `es-watch`<br/>
-            `css-watch`<br/>
-            `img-watch`<br/>
-            `watch-source-sass`<br/>
-            `html-watch`<br/>
-
-    For SASS
-    1. `gulp sass-watch` - run a list of tasks:
-        `watch-component`
-        `watch-base`
-        `watch-styles`
-        `watch-dependency`
-    1. `gulp sassComponents` - to compile sass styles just for components;
-    2. `gulp sassStyles` - to compile sass additional styles for component;
-    3. `gulp watch-styles` - watch changes under **sass/styles/common** , **sass/styles/content-alignment** , **sass/styles/layout** folders and compile all of them to **styles/styles.css**;
-    4. `gulp watch-base` - watch on changes under  **sass/abstracts/**, **sass/base/** , **sass/components** folders and run compiling of components and styles;
-    5. `gulp watch-component` - watch changes of component styles under *sass* folder and compile them to **styles** folder;
-    6. `gulp watch-dependency` - watch changes under **sass/styles/** (exluded **sass/styles/common** , **sass/styles/content-alignment** , **sass/styles/layout**) and compile appropriate component;
-
-    For CSS
-    1. `gulp css-watch` - watch on changes of css files under **stytles** folder and upload them to server;
-
-    For JavaScript:
-    1. `gulp eslint` - run eslint for all js in **scripts** folder;
-    2. `gulp js-watch` - watch on changes of js files under **scripts** folder and upload them to server;
-    2. `gulp es-watch` - watch on changes of ES6+ js files under **sources** folder and upload them to server;
-   
-    For HTML (if you work with creative exchange)
-    1. `gulp html-watch` - watch changes of HTML files and upload them to the server;
-
-    For Gulp files
-    1. `gulp watch-gulp` - watch on changes of js and JSON files under **gulp** folder and upload them to the server;
-
-    For Images
-    1. `gulp img-watch` - watch on changes under **images** folder and upload files to the server;
-
-    For Sprite
-    1. `gulp spriteFlag` - to create sprite for flags;
-
-9. When watcher starts you need to enter your login and password for Sitecore, for uploading reason.
+When you are working with multiple teams on separate solutions for a Sitecore environment that should be deployed separately, there is no reason why you can't have multiple solutions with a front-end folder containing the SXA Umbrella setup.
 

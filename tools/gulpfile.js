@@ -1,3 +1,5 @@
+"use strict";
+
 const fs = require('fs');
 const path = require('path');
 const through = require('through2');
@@ -17,42 +19,38 @@ const uploadFilesGlob = [
   '../Media Library/**/images/**/*',
 ];
 
-gulp.task('watch', function () {
-  gulp.watch(uploadFilesGlob, {
-    verbose: 0,
-    delay: 500
-  }, function (file) {
-    processFile(file);
-  });
-});
-
-gulp.task('deploy-to-sitecore', function (done) {
-  gulp.src(uploadFilesGlob, {
-      strict: true,
-      silent: false
-    })
-    .pipe(processFileInPipeline());
-  done();
-});
-
 const processFileInPipeline = () => {
   return through.obj({
     highWaterMark: 256
   }, (file, enc, cb, ) => {
-    processFile({
-      path: file.path,
-      event: 'change',
-      stat: {
-        size: fs.statSync(file.path).size
-      }
-    });
+    if (fs.lstatSync(file.path).isFile()) {
+      console.log(`Processing file '${file.path.replace(global.rootPath + '\\', '')}'`);
+      fileActionResolver(event, file.path, config.server, config.user.login, config.user.password);
+    }
     return cb(null, file);
   });
 }
 
-const processFile = (file) => {
-  if (fs.lstatSync(file.path).isFile()) {
-    console.log(`Processing file '${file.path.replace(global.rootPath + '\\', '')}'`);
-    fileActionResolver(file, config.server, config.user.login, config.user.password);
-  }
+const fullDeploy = () => {
+  return(
+    gulp
+      .src(uploadFilesGlob, {
+        strict: true,
+        silent: false
+      })
+      .pipe(processFileInPipeline())
+  );
 }
+
+const watch = () => {
+  gulp.watch(uploadFilesGlob, {
+    delay: 500,
+    ignoreInitial: false
+  }).on('all', (fileEvent, filePath) => {
+    console.log(`Changed file [${fileEvent}] '${filePath.replace(global.rootPath + '\\', '')}'`);
+    fileActionResolver(fileEvent, filePath, config.server, config.user.login, config.user.password);
+  });
+}
+// Exported tasks
+exports.fullDeploy = fullDeploy;
+exports.watch = watch;

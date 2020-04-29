@@ -6,15 +6,15 @@ const Queue = require('./Queue');
 
 const queue = new Queue();
 module.exports.queueInstance = queue;
-module.exports.fileActionResolver = function (file, server, login, password) {
-    if (file.path.indexOf('.scriban') > -1) {
-        return queue.add(() => changeScriban(file, server, login, password));
+module.exports.fileActionResolver = function (fileEvent, filePath, server, login, password) {
+    if (filePath.indexOf('.scriban') > -1) {
+        return queue.add(() => changeScriban(filePath, server, login, password));
     }
-    if (file.event == 'change' || file.event == 'add') {
-        return queue.add(() => changeFile(file.path, server, mediaLibraryDestinationPath(file), login, password));
-    } else if (file.event == 'unlink') {
-        return queue.add(() => deleteFile(file.path, server, mediaLibraryDestinationPath(file), login, password));
+    if (fileEvent == 'change' || fileEvent == 'add') {
+        return queue.add(() => changeFile(filePath, server, mediaLibraryDestinationPath(filePath), login, password));
+    } else if (fileEvent == 'unlink') {
+        return queue.add(() => deleteFile(server, mediaLibraryDestinationPath(filePath), login, password));
     }
 };
 
-const mediaLibraryDestinationPath = (file) => path.relative(path.join(global.rootPath, 'Media Library'), file.path).replace(/\\/g,'/');
+const mediaLibraryDestinationPath = (filePath) => path.relative(path.join(global.rootPath, 'Media Library'), filePath).replace(/\\/g,'/');

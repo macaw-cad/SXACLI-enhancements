@@ -20,7 +20,8 @@
     ],
     "include": [
         "Media Library/**/*.ts",
-        "Media Library/**/*.tsx", "local_modules/sxa-types/xa.d.ts"
+        "Media Library/**/*.tsx", 
+        "local_modules/sxa-types/**/*.d.ts"
     ],
     "exclude": [
         "node_modules",

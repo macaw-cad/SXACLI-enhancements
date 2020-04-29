@@ -163,26 +163,25 @@ const config = {
 	plugins: getPlugins()
 };
 
-const grid_SDMP_Bootstrap_4 = { ...config, 
+const grid_DMP_Bootstrap_4 = { ...config, 
 	entry: {
-		'pre-optimized-min': ['../Media Library/Feature/SDMP/SDMP Bootstrap 4/src/grid.ts']
+		'pre-optimized-min': ['../Media Library/Feature/DMP/DMP Bootstrap 4/src/grid.ts']
 	},
 	output: {
-		path: path.resolve(__dirname, '../Media Library/Feature/SDMP/SDMP Bootstrap 4'),
-		library: 'grid_SDMP_Bootstrap_4',
+		path: path.resolve(__dirname, '../Media Library/Feature/DMP/DMP Bootstrap 4'),
+		library: 'grid_DMP_Bootstrap_4',
 		libraryTarget: 'umd',
 		filename: 'scripts/[name].js'
 	},
 };
 
-const theme_SDMP = { ...config, 
+const theme_DMP = { ...config, 
 	entry: {
-		'pre-optimized-min': [ '../Media Library/Themes/SDMP/src/index.ts' ]
-		// 'react-components': ['../src/themes/SDMP/src/react-components/src/react-components.ts'],
+		'pre-optimized-min': [ '../Media Library/Themes/DMP/src/index.ts' ]
 	},
 	output: {
-		path: path.resolve(__dirname, '../Media Library/Themes/SDMP'),
-		library: 'theme_SDMP',
+		path: path.resolve(__dirname, '../Media Library/Themes/DMP'),
+		library: 'theme_DMP',
 		libraryTarget: 'umd',
 		filename: 'scripts/[name].js'
 	},
@@ -190,5 +189,5 @@ const theme_SDMP = { ...config,
 
 // Return Array of Configurations
 module.exports = [
-    grid_SDMP_Bootstrap_4, theme_SDMP    
+    grid_DMP_Bootstrap_4, theme_DMP    
 ];
