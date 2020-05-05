@@ -1,3 +1,8 @@
+<hr/>
+This repository is **DEPRECATED** - a more powerful version supporting multi-themes, multi-grids, multi-redenring variant collections is available as [SXA Umbrella](https://github.com/macaw-interactive/sxa-umbrella).
+
+Some features from this repository still have to find their way to SXA Umbrella, like the React examples.
+<hr/>
 # Introduction
 
 As [described by Sitecore](https://doc.sitecore.com/developers/sxa/93/sitecore-experience-accelerator/en/add-a-theme-using-sxa-cli.html):
