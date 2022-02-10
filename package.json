@@ -82,7 +82,7 @@
     "jsdoc": "^3.5.5",
     "latte-carousel": "^1.5.6",
     "mini-css-extract-plugin": "^0.9.0",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "npm-run-all": "^4.1.5",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "path": "^0.12.7",
